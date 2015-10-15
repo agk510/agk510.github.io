@@ -16,7 +16,7 @@ function setup() {
 function draw() {
   //set drawing window and background
   translate(0, windowHeight / 2);
-  background('lavender');
+  background('turquoise');
   var drawWidth = width / table.getRowCount();
 
   //retrieve magnitudes and dates from table
