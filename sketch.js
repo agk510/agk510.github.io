@@ -1,68 +1,101 @@
-var table;
+var goalsTable, categoryTable;
+// var div;
+var r = 0; //global row var to toggle between goals
 
-function preload() {
-  table = loadTable("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.csv", "csv");
-  // table = loadTable("MacintoshHD/Users/agk/Downloads/all_hour (4).csv", "csv");
-  
-}
+var goalnum, title;
+var span = [];
+
+var categories = {
+  "End Extreme Poverty": "red",
+  "Fight Inequality and Injustice": "blue",
+  "Fix Climate Change": "green"
+};
+
+var wordsToDisplay = [];
+var lookUp =[];
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  ellipseMode(CENTER);
-  textAlign(CENTER); // ds to center the text labels
-  
+  noCanvas();
+  noLoop();
+  goalsTable = loadTable("UNgoaldescriptions.csv", "csv");
+  categoryTable = loadTable("UNcategories.csv", "csv");
 }
 
-function draw() {
-  //set drawing window and background
-  translate(0, windowHeight / 2);
-  background('turquoise');
-  var drawWidth = width / table.getRowCount();
-
-  //retrieve magnitudes and dates from table
-  for (var r = 1; r < table.getRowCount(); r++) {
-    var magnitude = table.get(r, 4);
-    var dQuake = new Date(table.get(r, 0)); // ds following the parseEarthquakes approach of creating a 'new' Data object
-    
-    //label each earthquake with mag and reformatted date
-    fill(100);
-    // var ft = new SimpleDateFormat ("HH:mm:ss zzz");
-    textSize(12);
-    text("Mag: " + magnitude + "\n" + dQuake, r * drawWidth, 120);
-    // text(ft.format(dQuake), 80 + r * 100, 125);
-
-    //draw concentric circles with number of rings based on magnitude 
-    for (var i = 0; i < magnitude; i++) {
-      fill(225, 17, 58, 100 - 10 * i);
-      noStroke();
-      ellipse(r * drawWidth, 0, 50 + i * 25, 50 + i * 25);
-      
-      //if mouse scrolls over quake visual, location will pop up
-      if(r * drawWidth - (50 + i * 25)/2 < mouseX) {
-        if(r * drawWidth + (50 + i * 25)/2 > mouseX) {
-          if(mouseY > (windowHeight / 2) - (50 + i * 25)/2) {
-           if(mouseY < (windowHeight / 2) + (50 + i * 25)/2) {
-              fill (225, 17, 58);
-              textSize (14);
-              text("Epicenter: " + table.get(r, 13), width/2, 200);
-            }
-          }
-        }
-      }
+function loadCats() {
+  // load categories
+  for(var l = 0; l < categoryTable.getColumnCount(); l++) {
+    for (var k = 1; k < categoryTable.getRowCount(); k++) {
+       if (categoryTable.get(k,l) !== undefined && categoryTable.get(k,l) !== "") { 
+        lookUp[categoryTable.get(k,l)] = categoryTable.get(0,l);
+       }
     }
   }
+}
+
+function loadDescrip() {
+
+  // load description
+  var words = goalsTable.get(r,2).split(" "); //description broken down into single words in an array
+  for(var i = 0; i < words.length; i++) {
+    if(lookUp[words[i]]) {
+      wordsToDisplay.push(
+        {
+          word: words[i],
+          category: lookUp[words[i]]
+        }
+      );
+
+    } 
+    else {
+      wordsToDisplay.push({word: words[i]});
+    }
+  }
+  // console.log(wordsToDisplay); not working--why?
+}
+
+
+function draw() {
+
+  goalnum = createSpan(goalsTable.get(r, 0)); // ds
+  goalnum.style("font-size", "100pt"); //ds
+  title = createSpan(goalsTable.get(r, 1)); // ds
+  title.style("font-size", "60pt"); // ds
+  title.style("padding", "10%"); // ds
   
-  //print position of mouse (for testing)
-  //text("Mouse position: " + mouseX + ", " + mouseY, width/2, 250);
-
-  //print total number of earthquakes in last hour
-  fill(100);
-  textSize(20);
-  if (table.getRowCount() === 2) {
-    text("In the last hour, " + (table.getRowCount() - 1) + " earthquake has occurred...", width/2, -200);
+  for(var j = 0; j < wordsToDisplay.length; j++){
+    span[j] = createSpan(wordsToDisplay[j].word + " ");
+    // if (wordsToDisplay[j].category)
+      span.style("color", categories[wordsToDisplay[j].category]);
+    
   }
-  else {
-    text("In the last hour, " + (table.getRowCount() - 1) + " earthquakes have occurred...", width/2, -200);
-  }
+  // can't get the displayed description to swith with the goal number -- stuck on Goal 1 description
+}
 
+function keyTyped() {
+  // print(key);
+  if (key === ">") { // what is the value of a right arrow and left arrow?
+    r++;
+    if (r > 16)
+      r = 16; // bound the toggling ability
+  }
+  else if (key === "<") { // left arrow pressed
+    r--;
+    if (r < 0)
+      r = 0;
+  }
+  
+  // print(goalsTable.get(r, 0));
+  // print(goalsTable.get(r, 1));
+
+  // ds 
+  //print goal number, goal title and goal description
+  title.html("");
+  goalnum.html("");
+  // span.html("");
+  title.html(goalsTable.get(r, 1));
+  goalnum.html(goalsTable.get(r, 0));
+  
+  // parseData();
+  loadDescrip();
+  draw();
 }
