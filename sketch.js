@@ -1,9 +1,6 @@
 var goalsTable, categoryTable;
-// var div;
-var r = 0; //global row var to toggle between goals
-
-var goalnum, title;
-var span = [];
+var div;
+var r = 1; //global row var to toggle between goals
 
 var categories = {
   "End Extreme Poverty": "red",
@@ -14,14 +11,15 @@ var categories = {
 var wordsToDisplay = [];
 var lookUp =[];
 
-function setup() {
-  noCanvas();
-  noLoop();
+function preload() {
   goalsTable = loadTable("UNgoaldescriptions.csv", "csv");
   categoryTable = loadTable("UNcategories.csv", "csv");
 }
 
-function loadCats() {
+
+function setup() {
+  noCanvas();
+  
   // load categories
   for(var l = 0; l < categoryTable.getColumnCount(); l++) {
     for (var k = 1; k < categoryTable.getRowCount(); k++) {
@@ -30,11 +28,9 @@ function loadCats() {
        }
     }
   }
-}
 
-function loadDescrip() {
-
-  // load description
+  // load descriptions
+  wordsToDisplay = [];
   var words = goalsTable.get(r,2).split(" "); //description broken down into single words in an array
   for(var i = 0; i < words.length; i++) {
     if(lookUp[words[i]]) {
@@ -50,52 +46,44 @@ function loadDescrip() {
       wordsToDisplay.push({word: words[i]});
     }
   }
-  // console.log(wordsToDisplay); not working--why?
 }
 
-
 function draw() {
-
-  goalnum = createSpan(goalsTable.get(r, 0)); // ds
-  goalnum.style("font-size", "100pt"); //ds
-  title = createSpan(goalsTable.get(r, 1)); // ds
-  title.style("font-size", "60pt"); // ds
-  title.style("padding", "10%"); // ds
+  colorMode(RGB);
+  background(255);
+  
+  //print goal number, goal title and goal description
+  var goalnum = createSpan(goalsTable.get(r,0));
+  goalnum.style("font-size", "100pt");
+  
+  var title = createSpan(goalsTable.get(r,1));
+  title.style("font-size", "60pt");
+  title.style("padding", "10%");
   
   for(var j = 0; j < wordsToDisplay.length; j++){
-    span[j] = createSpan(wordsToDisplay[j].word + " ");
-    // if (wordsToDisplay[j].category)
-      span.style("color", categories[wordsToDisplay[j].category]);
-    
+    var div = createDiv(wordsToDisplay[j].word + " ");
+    if (wordsToDisplay[j].category) {
+      div.style("color", categories[wordsToDisplay[j].category]);
+    }
   }
-  // can't get the displayed description to swith with the goal number -- stuck on Goal 1 description
+  
+  noLoop();
 }
 
 function keyTyped() {
   // print(key);
   if (key === ">") { // what is the value of a right arrow and left arrow?
     r++;
-    if (r > 16)
-      r = 16; // bound the toggling ability
+    if (r > 17)
+      r = 17; // bound the toggling ability
+  
+    loop();
   }
   else if (key === "<") { // left arrow pressed
     r--;
-    if (r < 0)
-      r = 0;
+    if (r < 1)
+      r = 1;
+  
+    loop();
   }
-  
-  // print(goalsTable.get(r, 0));
-  // print(goalsTable.get(r, 1));
-
-  // ds 
-  //print goal number, goal title and goal description
-  title.html("");
-  goalnum.html("");
-  // span.html("");
-  title.html(goalsTable.get(r, 1));
-  goalnum.html(goalsTable.get(r, 0));
-  
-  // parseData();
-  loadDescrip();
-  draw();
 }
