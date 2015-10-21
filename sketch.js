@@ -1,6 +1,10 @@
-var goalsTable, categoryTable;
-var div;
-var r = 1; //global row var to toggle between goals
+var goalsTable, categoryTable, goalnum, title;
+var r = 0; //global row var to toggle between goals
+
+var wordsToDisplay = [];
+var lookUp = {};
+var span = [];
+var goalnum, title;
 
 var categories = {
   "End Extreme Poverty": "red",
@@ -8,18 +12,18 @@ var categories = {
   "Fix Climate Change": "green"
 };
 
-var wordsToDisplay = [];
-var lookUp =[];
-
 function preload() {
-  goalsTable = loadTable("UNgoaldescriptions.csv", "csv");
+  goalsTable = loadTable("UNgoaldescriptions.csv", "csv", "header");
   categoryTable = loadTable("UNcategories.csv", "csv");
 }
 
-
 function setup() {
   noCanvas();
-  
+  noLoop();
+  parseData();
+}
+
+function parseData() {
   // load categories
   for(var l = 0; l < categoryTable.getColumnCount(); l++) {
     for (var k = 1; k < categoryTable.getRowCount(); k++) {
@@ -30,6 +34,29 @@ function setup() {
   }
 
   // load descriptions
+
+  goalnum = createSpan(goalsTable.get(r, 0)); // ds
+  goalnum.style("font-size", "100pt"); //ds
+  title = createSpan(goalsTable.get(r, 1)); // ds
+  title.style("font-size", "60pt"); // ds
+  title.style("padding", "10%"); // ds
+  
+  //var span = [];
+  
+
+}
+
+function draw() {
+  //print goal number, goal title and goal description
+  
+  // visibility: hide
+  
+  title.html("");
+  goalnum.html("");
+  // span.html("");
+  title.html(goalsTable.get(r, 1));
+  goalnum.html(goalsTable.get(r, 0));
+  
   wordsToDisplay = [];
   var words = goalsTable.get(r,2).split(" "); //description broken down into single words in an array
   for(var i = 0; i < words.length; i++) {
@@ -46,44 +73,39 @@ function setup() {
       wordsToDisplay.push({word: words[i]});
     }
   }
-}
 
-function draw() {
-  colorMode(RGB);
-  background(255);
+  // goalnum = createSpan(goalsTable.get(r, 0)); // ds
+  // goalnum.style("font-size", "100pt"); //ds
+  // title = createSpan(goalsTable.get(r, 1)); // ds
+  // title.style("font-size", "60pt"); // ds
+  // title.style("padding", "10%"); // ds
   
-  //print goal number, goal title and goal description
-  var goalnum = createSpan(goalsTable.get(r,0));
-  goalnum.style("font-size", "100pt");
-  
-  var title = createSpan(goalsTable.get(r,1));
-  title.style("font-size", "60pt");
-  title.style("padding", "10%");
-  
+  var span = [];
+
   for(var j = 0; j < wordsToDisplay.length; j++){
-    var div = createDiv(wordsToDisplay[j].word + " ");
-    if (wordsToDisplay[j].category) {
-      div.style("color", categories[wordsToDisplay[j].category]);
-    }
+    span[j] = createSpan(wordsToDisplay[j].word + " ");
+    span[j].style("color", categories[wordsToDisplay[j].category]);
   }
   
-  noLoop();
+  for(var j = 0; j < wordsToDisplay.length; j++){
+    span[j].html("");
+    // span[j] = createSpan(wordsToDisplay[j].word + " ");
+    span[j].html(wordsToDisplay[j].word + " ");
+    // span[j].style("color", categories[wordsToDisplay[j].category]);
+  }
 }
 
 function keyTyped() {
-  // print(key);
+  print(r);
   if (key === ">") { // what is the value of a right arrow and left arrow?
     r++;
-    if (r > 17)
-      r = 17; // bound the toggling ability
-  
-    loop();
+    if (r > 16)
+      r = 16; // bound the toggling ability
   }
   else if (key === "<") { // left arrow pressed
     r--;
-    if (r < 1)
-      r = 1;
-  
-    loop();
+    if (r < 0)
+      r = 0;
   }
+  draw();
 }
