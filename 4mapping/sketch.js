@@ -7,8 +7,8 @@ var canvas; // p5 canvas
 var quakes = []; // array of earthquakes 
 var mags = []; // array of magnitudes
 // var slider; // UI for setting minimum magnitude
-var magnitude; // div for storing min magnitude from slider 
-var roar; // sound effect = 
+// var magnitude; // div for storing min magnitude from slider 
+var roar; // sound effect
 
 function preload() {
 	roar = loadSound('roar.mp3'); // load 'roar' sound effect for popups
