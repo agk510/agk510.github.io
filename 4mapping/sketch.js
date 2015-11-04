@@ -128,7 +128,7 @@ function parseSource(data) {
 function initLeaflet() {
   // your access token here
   L.mapbox.accessToken = 'pk.eyJ1IjoiYWdrNTEwIiwiYSI6ImNpZ2IzYmhqdTFueTd0eW0yMHhlanh5bmEifQ.ZpxlZr44lW7yMLaJ8uocqQ';
-  map = L.mapbox.map('map', 'mapbox.comic').setView([20, 0], 3);
+  map = L.mapbox.map('map', 'mapbox.comic').setView([37.266101, -120.127980], 7);
 
   function onMapClick(e) {
     // leaflet needs this function, no need to do anything here
