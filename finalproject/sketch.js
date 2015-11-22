@@ -13,9 +13,9 @@ var gender = [];
 function setup() {
 	noCanvas();
  	table = loadTable("http://agk510.github.io/finalproject/libraries/empdat.csv", "csv", "header", parseSource); // load source, parse when done
- 	console.log(edu[5]);
- 	console.log(jobcat[29]);
- 	console.log(salary[365]);
+ 	// console.log(edu[5]);
+ 	// console.log(jobcat[29]);
+ 	// console.log(salary[365]);
 }
 
 function draw() {
@@ -24,6 +24,7 @@ function draw() {
 
 function parseSource() {
   for (var i = 0; i < table.getRowCount(); i++){
+    console.log(table.get(i,1));
     edu[i] = table.get(i,1);
     jobcat[i] = table.get(i,2);
     salary[i] = table.get(i,3);
