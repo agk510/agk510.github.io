@@ -10,15 +10,17 @@ var race = [];
 var age = [];
 var gender = [];
 
+function preload() {
+    table = loadTable("http://agk510.github.io/finalproject/libraries/empdat.csv", "csv", "header"); // load source, parse when done
+}
+
 function setup() {
 	noCanvas();
- 	table = loadTable("http://agk510.github.io/finalproject/libraries/empdat.csv", "csv", "header", parseSource); // load source, parse when done
-  // CHECK p5.org TO ENSURE I'M CALLING loadTable correctly!!!
- 	for (var i = 0; i < table.getRowCount(); i++){
-    console.log(table.get(i,1));}
-    // console.log(edu[5]);
- 	// console.log(jobcat[29]);
- 	// console.log(salary[365]);
+ 	parseSource();
+    for (var j = 0; j < table.getRowCount(); j++) { // check that source has successfully been parsed
+        console.log(edu[j]);
+        console.log(salary[j]);
+    }
 }
 
 function draw() {
@@ -27,7 +29,6 @@ function draw() {
 
 function parseSource() {
   for (var i = 0; i < table.getRowCount(); i++){
-    // console.log(table.get(i,1));
     edu[i] = table.get(i,1);
     jobcat[i] = table.get(i,2);
     salary[i] = table.get(i,3);
