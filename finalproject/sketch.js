@@ -17,10 +17,11 @@ function preload() {
 function setup() {
 	noCanvas();
  	parseSource();
-    for (var j = 0; j < table.getRowCount(); j++) { // check that source has successfully been parsed
-        console.log(edu[j]);
-        console.log(salary[j]);
-    }
+    // for (var j = 0; j < table.getRowCount(); j++) { // check that source has successfully been parsed
+    //     console.log(edu[j]);
+    //     console.log(salary[j]);
+    // }
+
 }
 
 function draw() {
@@ -39,4 +40,32 @@ function parseSource() {
     age[i] = table.get(i,8);
     gender[i] = table.get(i,9);
   }
+}
+
+function average(array) {
+    var sum = 0;
+    for (var i = 0; i < array.length; i++) {
+        sum = sum + array[j];
+    }
+    var avg; = sum / array.length;
+
+    return avg;
+}
+
+function percentageBreakdown(array, cat1, cat2, cat3) {
+    var sum1 = 0;
+    var sum2 = 0;
+    var sum3 = 0;
+
+    for (var i; i < array.length; i++) {
+        if (array[i] === cat1)
+            sum1++;
+        else if (array[i] === cat2)
+            sum2++;
+        else if (array[i] === cat3)
+            sum3++;   
+    }
+
+    // NOTE: still need to calculate percetages of each cat and return array with each percetage
+
 }
