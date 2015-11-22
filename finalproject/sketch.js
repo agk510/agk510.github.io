@@ -13,6 +13,7 @@ var gender = [];
 function setup() {
 	noCanvas();
  	table = loadTable("http://agk510.github.io/finalproject/libraries/empdat.csv", "csv", "header", parseSource); // load source, parse when done
+  // CHECK p5.org TO ENSURE I'M CALLING loadTable correctly!!!
  	for (var i = 0; i < table.getRowCount(); i++){
     console.log(table.get(i,1));}
     // console.log(edu[5]);
