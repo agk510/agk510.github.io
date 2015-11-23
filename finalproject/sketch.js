@@ -15,8 +15,9 @@ function preload() {
 }
 
 function setup() {
-	noCanvas();
- 	parseSource();
+	createCanvas(windowWidth, windowHeight);
+    ellipseMode(CENTER);
+    parseSource();
     // for (var j = 0; j < table.getRowCount(); j++) { // check that source has successfully been parsed
     //     console.log(edu[j]);
     //     console.log(salary[j]);
@@ -25,7 +26,28 @@ function setup() {
 }
 
 function draw() {
- 
+    background(255);
+
+    var men = countType(gender, 'Male');
+    var women = countType(gender, 'Female');
+
+    print("Number of men: " + men); //check to make sure function is returning properly
+    print("Number of women: " + women);
+
+    var percMen = men / (men + women);
+    var percWomen = women / (men + women);
+
+    fill(0);
+    text("Percentage men: " + percMen, 50, 50);
+    text("Percentage women: " + percWomen, 50, 60);
+
+    var cat1color = 'red';
+    var cat2color = 'blue';
+    noStroke();
+    fill(cat1color);
+    arc(100, 200, 50, 50, -HALF_PI, -HALF_PI + percMen*TWO_PI, PIE);
+    fill(cat2color);
+    arc(100, 200, 50, 50, -HALF_PI + percMen*TWO_PI, -HALF_PI + percMen*TWO_PI + percWomen*TWO_PI, PIE);
 }
 
 function parseSource() {
@@ -44,10 +66,10 @@ function parseSource() {
 
 function average(array) {   // takes the average of the values in the array (interval-ratio numbers only)
     var sum = 0;
-    for (var i = 0; i < array.length; i++) {
+    for (var i = 0; i < array.length; i++)
         sum = sum + array[j];
-    }
-    var avg; = sum / array.length;
+    
+    var avg = sum / array.length;
 
     return avg;
 }
@@ -104,6 +126,23 @@ function percentageBreakdown(array, cat1, cat2, cat3) { //
     }
 
     var allperc = [sum1 / (sum1 + sum2 + sum3), sum2 / (sum1 + sum2 + sum3), sum3 / (sum1 + sum2 + sum3)];
+
+    return allperc;
+
+}
+
+function percentageBreakdown(array, cat1, cat2) { //
+    var sum1 = 0;
+    var sum2 = 0;
+
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] === cat1)
+            sum1++;
+        else if (array[i] === cat2)
+            sum2++;
+    }
+
+    var allperc = [sum1 / (sum1 + sum2), sum2 / (sum1 + sum2)];
 
     return allperc;
 
