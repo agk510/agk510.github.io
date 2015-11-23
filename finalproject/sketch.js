@@ -10,12 +10,16 @@ var race = [];
 var age = [];
 var gender = [];
 
+var canvas;
+
 function preload() {
     table = loadTable("http://agk510.github.io/finalproject/libraries/empdat.csv", "csv", "header"); // load source, parse when done
 }
 
 function setup() {
-	createCanvas(windowWidth, windowHeight);
+	canvas = createCanvas(windowWidth, windowHeight);
+    canvas.position(0,100);
+   
     ellipseMode(CENTER);
     parseSource();
     // for (var j = 0; j < table.getRowCount(); j++) { // check that source has successfully been parsed
@@ -23,6 +27,13 @@ function setup() {
     //     console.log(salary[j]);
     // }
 
+    var title = createDiv("<b>TITLE<b>");
+    title.id("top");
+    title.position(30, 35);
+
+    var titlebar = createDiv("");
+    titlebar.id("top-bg");
+    titlebar.position(0,0);
 }
 
 function draw() {
@@ -30,17 +41,15 @@ function draw() {
 
     var men = countType(gender, 'Male');
     var women = countType(gender, 'Female');
+    // print("Number of men: " + men); //check to make sure function is returning properly
+    // print("Number of women: " + women);
 
-    print("Number of men: " + men); //check to make sure function is returning properly
-    print("Number of women: " + women);
-
+    // testing pie chart drawing
     var percMen = men / (men + women);
     var percWomen = women / (men + women);
-
     fill(0);
     text("Percentage men: " + percMen, 50, 50);
     text("Percentage women: " + percWomen, 50, 60);
-
     var cat1color = 'red';
     var cat2color = 'blue';
     noStroke();
@@ -48,6 +57,7 @@ function draw() {
     arc(100, 200, 50, 50, -HALF_PI, -HALF_PI + percMen*TWO_PI, PIE);
     fill(cat2color);
     arc(100, 200, 50, 50, -HALF_PI + percMen*TWO_PI, -HALF_PI + percMen*TWO_PI + percWomen*TWO_PI, PIE);
+
 }
 
 function parseSource() {
