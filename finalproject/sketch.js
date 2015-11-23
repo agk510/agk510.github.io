@@ -42,7 +42,7 @@ function parseSource() {
   }
 }
 
-function average(array) {
+function average(array) {   // takes the average of the values in the array (interval-ratio numbers only)
     var sum = 0;
     for (var i = 0; i < array.length; i++) {
         sum = sum + array[j];
@@ -52,7 +52,44 @@ function average(array) {
     return avg;
 }
 
-function percentageBreakdown(array, cat1, cat2, cat3) {
+function countType (array, type) {  // returns the number of occurrences of type in array
+    var count = 0;
+    for (var i = 0; i < array.length; i++)
+        if (array[i] === type)
+            count++;
+
+    return count;
+}
+
+function countSubtype (array, type, subarray, subtype) { // returns the number of occurrences of subtype that correspond with type
+    var subcount = 0;
+    for (var i = 0; i < array.length; i++)
+        if (array[i] === type)
+            if (subarray[i] === subtype)
+                subcount++;
+
+    return subcount;
+}
+
+function findmin (array) { // returns the minimum value in the array
+    var min = array[0];
+    for (var i = 1; i < array.length; i++)
+        if (array[i] < min)
+            min = array[i];
+
+    return min;
+}
+
+function findmax (array) { // returns the maximum value in the array
+    var max = array[0];
+    for (var i = 1; i < array.length; i++)
+        if (array[i] > max)
+            max = array[i];
+
+    return max;
+}
+
+function percentageBreakdown(array, cat1, cat2, cat3) { //
     var sum1 = 0;
     var sum2 = 0;
     var sum3 = 0;
@@ -66,6 +103,8 @@ function percentageBreakdown(array, cat1, cat2, cat3) {
             sum3++;   
     }
 
-    // NOTE: still need to calculate percetages of each cat and return array with each percetage
+    var allperc = [sum1 / (sum1 + sum2 + sum3), sum2 / (sum1 + sum2 + sum3), sum3 / (sum1 + sum2 + sum3)];
+
+    return allperc;
 
 }
