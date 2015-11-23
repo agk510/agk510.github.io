@@ -11,6 +11,8 @@ var age = [];
 var gender = [];
 
 var canvas;
+// var graphContext, graphGender, graphRace; // create graphics for each section 
+var sectionHeight = 400;
 
 function preload() {
     table = loadTable("http://agk510.github.io/finalproject/libraries/empdat.csv", "csv", "header"); // load source, parse when done
@@ -20,6 +22,10 @@ function setup() {
 	canvas = createCanvas(windowWidth, windowHeight);
     canvas.position(0,100);
    
+    // graphContext = createGraphics(width, sectionHeight);
+    // graphGender = createGraphics(width, sectionHeight);
+    // graphRace = createGraphics(width, sectionHeight);
+
     ellipseMode(CENTER);
     parseSource();
     // for (var j = 0; j < table.getRowCount(); j++) { // check that source has successfully been parsed
@@ -34,10 +40,31 @@ function setup() {
     var titlebar = createDiv("");
     titlebar.id("top-bg");
     titlebar.position(0,0);
+
+    //keep title bar at top when scrolling (still needs development)
+    // <script>
+    //   $(document).ready(function(){
+    //   $("#sticker").sticky({topSpacing:0});
+    //     });
+    // </script>
 }
 
 function draw() {
     background(255);
+
+    // graphContext.background(200);
+    // graphContext.text("I am text in Context section. \nI will talk about the historical context of the court case.", 10, 100);    
+    // image(graphContext, 0, 0);
+
+    var context = createDiv("");
+    context.id("gContext");
+    context.position(0,100);
+    context.add.text("I am the historical context.", 10, 20);
+
+
+    var gGender = createDiv("");
+    gGender.id("Odd");
+    gGender.position(0,100+sectionHeight);
 
     var men = countType(gender, 'Male');
     var women = countType(gender, 'Female');
@@ -45,6 +72,7 @@ function draw() {
     // print("Number of women: " + women);
 
     // testing pie chart drawing
+    background(255);
     var percMen = men / (men + women);
     var percWomen = women / (men + women);
     fill(0);
@@ -57,7 +85,7 @@ function draw() {
     arc(100, 200, 50, 50, -HALF_PI, -HALF_PI + percMen*TWO_PI, PIE);
     fill(cat2color);
     arc(100, 200, 50, 50, -HALF_PI + percMen*TWO_PI, -HALF_PI + percMen*TWO_PI + percWomen*TWO_PI, PIE);
-
+    
 }
 
 function parseSource() {
