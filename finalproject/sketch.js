@@ -21,17 +21,11 @@ function preload() {
 function setup() {
 	canvas = createCanvas(windowWidth, windowHeight);
     canvas.position(0,100);
-   
-    // graphContext = createGraphics(width, sectionHeight);
-    // graphGender = createGraphics(width, sectionHeight);
-    // graphRace = createGraphics(width, sectionHeight);
 
     ellipseMode(CENTER);
+    textAlign(CENTER);
     parseSource();
-    // for (var j = 0; j < table.getRowCount(); j++) { // check that source has successfully been parsed
-    //     console.log(edu[j]);
-    //     console.log(salary[j]);
-    // }
+ 
 
     var title = createDiv("<b>TITLE<b>");
     title.id("top");
@@ -50,42 +44,42 @@ function setup() {
 }
 
 function draw() {
-    background(255);
-
-    // graphContext.background(200);
-    // graphContext.text("I am text in Context section. \nI will talk about the historical context of the court case.", 10, 100);    
-    // image(graphContext, 0, 0);
-
-    var context = createDiv("");
-    context.id("gContext");
-    context.position(0,100);
-    context.add.text("I am the historical context.", 10, 20);
-
-
-    var gGender = createDiv("");
-    gGender.id("Odd");
-    gGender.position(0,100+sectionHeight);
+   
+    // spaceholder for background context and description
+    noStroke();
+    fill(253,71,22);
+    rect(0, 0, width, sectionHeight);
+    fill(100);
+    textSize(20);
+    text("I am a placeholder for background context and description.", 100, 100); // alternately could create a div for this text 
 
     var men = countType(gender, 'Male');
     var women = countType(gender, 'Female');
-    // print("Number of men: " + men); //check to make sure function is returning properly
-    // print("Number of women: " + women);
-
-    // testing pie chart drawing
-    background(255);
     var percMen = men / (men + women);
     var percWomen = women / (men + women);
-    fill(0);
-    text("Percentage men: " + percMen, 50, 50);
-    text("Percentage women: " + percWomen, 50, 60);
     var cat1color = 'red';
     var cat2color = 'blue';
+    
+
+    // new section for first dataset
+    push();
+    translate(0, sectionHeight*1);
+    noStroke();
+    fill(255,96,47);
+    rect(0, 0, width, sectionHeight);
+
+    //draw pie chart to show gender breakdown in firm
     noStroke();
     fill(cat1color);
-    arc(100, 200, 50, 50, -HALF_PI, -HALF_PI + percMen*TWO_PI, PIE);
+    arc(width/4, sectionHeight/2, sectionHeight/2, sectionHeight/2, -HALF_PI, -HALF_PI + percWomen*TWO_PI, PIE);
     fill(cat2color);
-    arc(100, 200, 50, 50, -HALF_PI + percMen*TWO_PI, -HALF_PI + percMen*TWO_PI + percWomen*TWO_PI, PIE);
-    
+    arc(width/4, sectionHeight/2, sectionHeight/2, sectionHeight/2, -HALF_PI + percWomen*TWO_PI, -HALF_PI + percWomen*TWO_PI + percMen*TWO_PI, PIE);
+  	//label the pie chart with fomatted percentages (one decimal point)
+    fill(0);
+    text(nf(percMen*100, 2, 1) + "% Men", width/4, sectionHeight - sectionHeight/4+40);
+    text(nf(percWomen*100, 2, 1) + "% Women", width/4, sectionHeight - sectionHeight/4 + 20);
+    pop();
+
 }
 
 function parseSource() {
