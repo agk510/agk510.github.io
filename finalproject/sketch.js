@@ -68,17 +68,31 @@ function draw() {
     fill(255,96,47);
     rect(0, 0, width, sectionHeight);
 
-    //draw pie chart to show gender breakdown in firm
+
+    //create buttons to toggle between pie charts and graphs
+    var button1 = createButton('1', 1)
+    button1.position(width/4, sectionHeight-10); // note that button is not included in translate function -- need to reposition under the pie chart
+    // button1.mousePressed(swithGraph);
+
+    //draw pie chart to show overall gender breakdown in firm
     noStroke();
     fill(cat1color);
     arc(width/4, sectionHeight/2, sectionHeight/2, sectionHeight/2, -HALF_PI, -HALF_PI + percWomen*TWO_PI, PIE);
     fill(cat2color);
     arc(width/4, sectionHeight/2, sectionHeight/2, sectionHeight/2, -HALF_PI + percWomen*TWO_PI, -HALF_PI + percWomen*TWO_PI + percMen*TWO_PI, PIE);
+  	
   	//label the pie chart with fomatted percentages (one decimal point)
     fill(0);
-    text(nf(percMen*100, 2, 1) + "% Men", width/4, sectionHeight - sectionHeight/4+40);
+    text(nf(percMen*100, 2, 1) + "% Men", width/4, sectionHeight - sectionHeight/4+40); // create div instead
     text(nf(percWomen*100, 2, 1) + "% Women", width/4, sectionHeight - sectionHeight/4 + 20);
     pop();
+
+    push();
+    translate(0, sectionHeight*2);
+    noStroke();
+    fill(255,127,35);
+    rect(0, 0, width, sectionHeight);
+
 
 }
 
