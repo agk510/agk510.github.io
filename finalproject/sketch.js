@@ -356,42 +356,42 @@ function findmax (array) { // returns the maximum value in the array
     return max;
 }
 
-function percentageBreakdown(array, cat1, cat2, cat3) { //
-    var sum1 = 0;
-    var sum2 = 0;
-    var sum3 = 0;
+// function percentageBreakdown(array, cat1, cat2, cat3) { //
+//     var sum1 = 0;
+//     var sum2 = 0;
+//     var sum3 = 0;
 
-    for (var i; i < array.length; i++) {
-        if (array[i] === cat1)
-            sum1++;
-        else if (array[i] === cat2)
-            sum2++;
-        else if (array[i] === cat3)
-            sum3++;   
-    }
+//     for (var i; i < array.length; i++) {
+//         if (array[i] === cat1)
+//             sum1++;
+//         else if (array[i] === cat2)
+//             sum2++;
+//         else if (array[i] === cat3)
+//             sum3++;   
+//     }
 
-    var allperc = [sum1 / (sum1 + sum2 + sum3), sum2 / (sum1 + sum2 + sum3), sum3 / (sum1 + sum2 + sum3)];
+//     var allperc = [sum1 / (sum1 + sum2 + sum3), sum2 / (sum1 + sum2 + sum3), sum3 / (sum1 + sum2 + sum3)];
 
-    return allperc;
+//     return allperc;
 
-}
+// }
 
-function percentageBreakdown(array, cat1, cat2) { //
-    var sum1 = 0;
-    var sum2 = 0;
+// function percentageBreakdown(array, cat1, cat2) { //
+//     var sum1 = 0;
+//     var sum2 = 0;
 
-    for (var i = 0; i < array.length; i++) {
-        if (array[i] === cat1)
-            sum1++;
-        else if (array[i] === cat2)
-            sum2++;
-    }
+//     for (var i = 0; i < array.length; i++) {
+//         if (array[i] === cat1)
+//             sum1++;
+//         else if (array[i] === cat2)
+//             sum2++;
+//     }
 
-    var allperc = [sum1 / (sum1 + sum2), sum2 / (sum1 + sum2)];
+//     var allperc = [sum1 / (sum1 + sum2), sum2 / (sum1 + sum2)];
 
-    return allperc;
+//     return allperc;
 
-}
+// }
 
 function getArray(array, subarray, subtype, subarray2, subtype2) { // something is wrong with the filtering, returns same array for white women and men and for PoC women and men
     var newarray = [];
