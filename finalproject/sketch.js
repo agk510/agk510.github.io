@@ -282,8 +282,52 @@ function draw() {
    // //noStroke();
    // fill(255);
    // rect(0, 0, width, sectionWidth);
-    
 
+	var maxSal;
+	if (findmax(womenSal) > findmax(menSal))
+		maxSal = findmax(womenSal);
+	else
+		maxSal = findmax(menSal);
+	
+	push();
+	translate(900, 750);
+	var eduW = [];
+	eduW = getArray(edu, gender, "Female");
+	var eduM = [];
+	eduM = getArray(edu, gender, "Male");
+	var maxEdu;
+	if (findmax(eduW) > findmax(eduM))
+		maxEdu = findmax(eduW);
+	else
+		maxEdu = findmax(eduM);
+
+  stroke(Mcolor);
+  plot(eduM, menSal, maxEdu, maxSal);
+  stroke(Wcolor);
+  plot(eduW, womenSal, maxEdu, maxSal);
+	pop();
+
+
+  push();
+  translate (1500, 750);
+  var agesW = [];
+  agesW = getArray(age, gender, "Female");
+  var agesM = [];
+  agesM = getArray(age, gender, "Male");
+  var maxAge;
+	if (findmax(agesW) > findmax(agesM))
+		maxAge = findmax(agesW);
+	else
+		maxAge = findmax(agesM);
+  
+  
+  stroke(Mcolor);
+  plot(agesM, menSal, maxAge, maxSal);
+  stroke(Wcolor);
+  plot(agesW, womenSal, maxAge, maxSal);
+  pop();
+
+	
 }
 
 function parseSource() {
@@ -399,4 +443,35 @@ function getArray(array, subarray, subtype) {
             append(newarray, array[i]);
     
     return newarray;
+}
+
+function plot(xarray, yarray, xmax, ymax) {
+	var xcoords = [];
+	var ycoords = [];
+	var graphwidth = 500; 
+	var graphheight = 300;
+	
+	for (var i = 0; i < xarray.length; i++)
+		append(xcoords, map(xarray[i], 0, xmax, 0, graphwidth));
+	
+	for (var j = 0; j < yarray.length; j++)
+		append(ycoords, map(yarray[j], 0, ymax, 0, graphheight));
+	
+	
+	for (var k = 0; k < xcoords.length; k++) { 
+		noFill();
+		strokeWeight(3);
+ 		ellipse(xcoords[k], -ycoords[k], 10, 10);
+	}
+	
+	strokeWeight(1);
+	stroke(0);
+	line(0, 0, graphwidth, 0);
+	line(0, 0, 0, -graphheight);
+	
+	fill(0);
+	textSize(15);
+	text(xmax, graphwidth, 20);
+	text("$" + nf(ymax, 0, 0), -30, -graphheight);
+	return;
 }
