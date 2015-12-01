@@ -11,35 +11,28 @@ var age = [];
 var gender = [];
 
 var canvas;
-var sectionHeight = 400;
+var sectionWidth = 400;
 
 function preload() {
     table = loadTable("http://agk510.github.io/finalproject/libraries/empdat.csv", "csv", "header"); // load source, parse when done
 }
 
 function setup() {
-	canvas = createCanvas(windowWidth, sectionHeight*6);
-    canvas.position(0,100);
-
+	  canvas = createCanvas(windowWidth, sectionWidth*6);
+    canvas.position(0,80);
+    
+    var title = createDiv("<b>SAMPLE TITLE<b>");
+    title.id("title");
+    title.position(30, 35);
+    
+    var sec1 = createElement("h1", "Title of Section 1");
+    sec1.position(500, 0);
+    sec1.id;
+    
     ellipseMode(CENTER);
     textAlign(CENTER);
     parseSource();
- 
-
-    var title = createDiv("<b>TITLE<b>");
-    title.id("top");
-    title.position(30, 35);
-
-    var titlebar = createDiv("");
-    titlebar.id("top-bg");
-    titlebar.position(0,0);
-
-    //keep title bar at top when scrolling (still needs development)
-    // <script>
-    //   $(document).ready(function(){
-    //   $("#sticker").sticky({topSpacing:0});
-    //     });
-    // </script>
+    
 }
 
 function draw() {
@@ -55,18 +48,16 @@ function draw() {
     // placeholder for contextual information section
     fill(255);
     noStroke();
-    rect(0, 0, width, sectionHeight);
+    rect(0, 0, width, sectionWidth);
     fill(100);
-    textSize(20);
-    text("I am a placeholder for background context and description.", 100, 100); // alternately could create a div for this text 
-
+    
     // new section for first dataset: overall gender breakdown
     push();
-    translate(0, sectionHeight*sectionindex);
+    translate(0, sectionWidth*sectionindex);
     sectionindex++;
     noStroke();
     fill(bgcolor);
-    rect(0, 0, width, sectionHeight);
+    rect(0, 0, width, sectionWidth);
 
     var men = countType(gender, 'Male');
     var women = countType(gender, 'Female');
@@ -76,21 +67,21 @@ function draw() {
     //draw pie chart to show overall gender breakdown in firm
     noStroke();
     fill(cat1color);
-    arc(width/4, sectionHeight/2, sectionHeight/2, sectionHeight/2, -HALF_PI, -HALF_PI + percWomen*TWO_PI, PIE);
-    text(nf(percWomen*100, 2, 1) + "% Women", width/4, sectionHeight - sectionHeight/4 + 20);
+    arc(width/4, sectionWidth/2, sectionWidth/2, sectionWidth/2, -HALF_PI, -HALF_PI + percWomen*TWO_PI, PIE);
+    text(nf(percWomen*100, 2, 1) + "% Women", width/4, sectionWidth - sectionWidth/4 + 20);
     fill(cat2color);
-    arc(width/4, sectionHeight/2, sectionHeight/2, sectionHeight/2, -HALF_PI + percWomen*TWO_PI, -HALF_PI + percWomen*TWO_PI + percMen*TWO_PI, PIE);
-  	text(nf(percMen*100, 2, 1) + "% Men", width/4, sectionHeight - sectionHeight/4+40); // create div instead
+    arc(width/4, sectionWidth/2, sectionWidth/2, sectionWidth/2, -HALF_PI + percWomen*TWO_PI, -HALF_PI + percWomen*TWO_PI + percMen*TWO_PI, PIE);
+  	text(nf(percMen*100, 2, 1) + "% Men", width/4, sectionWidth - sectionWidth/4+40); // create div instead
     
     pop();
     
     // temporary section break -- will go away once button toggling is active
     push();
-    translate(0, sectionHeight*sectionindex);
+    translate(0, sectionWidth*sectionindex);
     sectionindex++;
     noStroke();
     fill(255);
-    rect(0, 0, width, sectionHeight);
+    rect(0, 0, width, sectionWidth);
 
 
     //calculate average salary for each gender
@@ -104,11 +95,11 @@ function draw() {
     //draw bar graph for average salaries
     noStroke();
     fill(cat1color);
-    rect(width-width/2, sectionHeight-sectionHeight/4, 50, -map(avgWomanSal, 0, 50000, 0, sectionHeight/2));    
-    text("Current salary (avg): $" + nf(avgWomanSal, 0, 2), width-width/2, sectionHeight-sectionHeight/4+20);
+    rect(width-width/2, sectionWidth-sectionWidth/4, 50, -map(avgWomanSal, 0, 50000, 0, sectionWidth/2));    
+    text("Current salary (avg): $" + nf(avgWomanSal, 0, 2), width-width/2, sectionWidth-sectionWidth/4+20);
     fill(cat2color);
-    rect(width-width/2+70, sectionHeight-sectionHeight/4, 50, -map(avgManSal, 0, 50000, 0, sectionHeight/2));
-    text("Current salary (avg): $" + nf(avgManSal, 0, 2), width-width/2, sectionHeight-sectionHeight/4+40);
+    rect(width-width/2+70, sectionWidth-sectionWidth/4, 50, -map(avgManSal, 0, 50000, 0, sectionWidth/2));
+    text("Current salary (avg): $" + nf(avgManSal, 0, 2), width-width/2, sectionWidth-sectionWidth/4+40);
 
       
     //calculate average beginning salary for each gender
@@ -122,26 +113,26 @@ function draw() {
     // draw bargraph for avg beginning salaries
     noStroke();
     fill(cat1color);
-    rect(width-width/4, sectionHeight-sectionHeight/4, 50, -map(avgBegW, 0, 50000, 0, sectionHeight/2));    
-    text("Starting salary (avg): $" + nf(avgBegW, 0, 2), width-width/4, sectionHeight-sectionHeight/4+20);
+    rect(width-width/4, sectionWidth-sectionWidth/4, 50, -map(avgBegW, 0, 50000, 0, sectionWidth/2));    
+    text("Starting salary (avg): $" + nf(avgBegW, 0, 2), width-width/4, sectionWidth-sectionWidth/4+20);
     fill(cat2color);
-    rect(width-width/4+70, sectionHeight-sectionHeight/4, 50, -map(avgBegM, 0, 50000, 0, sectionHeight/2));
-    text("Starting salary (avg): $" + nf(avgBegM, 0, 2), width-width/4, sectionHeight-sectionHeight/4+40);
+    rect(width-width/4+70, sectionWidth-sectionWidth/4, 50, -map(avgBegM, 0, 50000, 0, sectionWidth/2));
+    text("Starting salary (avg): $" + nf(avgBegM, 0, 2), width-width/4, sectionWidth-sectionWidth/4+40);
     
     //create buttons to toggle between pie charts and graphs
     // var button1 = createButton("Current Salary", 1);
-    // button1.position(width/4, sectionHeight-10); // note that button is not included in translate function -- need to reposition under the pie chart
+    // button1.position(width/4, sectionWidth-10); // note that button is not included in translate function -- need to reposition under the pie chart
     // // button1.mousePressed(swithGraph);
     pop();
     
     
     // new section for job categories
     push();
-    translate(0, sectionHeight*sectionindex);
+    translate(0, sectionWidth*sectionindex);
     sectionindex++;
     noStroke();
     fill(255);
-    rect(0, 0, width, sectionHeight); 
+    rect(0, 0, width, sectionWidth); 
 
     // calculate percentages of men/women by job category
     var numWmanagers = countSubtype(gender, 'Female', jobcat, 'Manager');
@@ -162,31 +153,31 @@ function draw() {
     // draw pie charts for men/women by job category
     noStroke();
     fill(cat1color);
-    arc(width/4, sectionHeight/2, sectionHeight/2, sectionHeight/2, -HALF_PI, -HALF_PI + percWmanagers*TWO_PI, PIE);
-    text(nf(percWmanagers*100, 2, 1) + "% Female Managers", width/4, sectionHeight - sectionHeight/4 + 20);
+    arc(width/4, sectionWidth/2, sectionWidth/2, sectionWidth/2, -HALF_PI, -HALF_PI + percWmanagers*TWO_PI, PIE);
+    text(nf(percWmanagers*100, 2, 1) + "% Female Managers", width/4, sectionWidth - sectionWidth/4 + 20);
     fill(cat2color);
-    arc(width/4, sectionHeight/2, sectionHeight/2, sectionHeight/2, -HALF_PI + percWmanagers*TWO_PI, -HALF_PI + percWmanagers*TWO_PI + percMmanagers*TWO_PI, PIE);
-    text(nf(percMmanagers*100, 2, 1) + "% Male Managers", width/4, sectionHeight - sectionHeight/4+40); // create div instead
+    arc(width/4, sectionWidth/2, sectionWidth/2, sectionWidth/2, -HALF_PI + percWmanagers*TWO_PI, -HALF_PI + percWmanagers*TWO_PI + percMmanagers*TWO_PI, PIE);
+    text(nf(percMmanagers*100, 2, 1) + "% Male Managers", width/4, sectionWidth - sectionWidth/4+40); // create div instead
     
     fill(cat1color);
-    arc(2*width/4, sectionHeight/2, sectionHeight/2, sectionHeight/2, -HALF_PI, -HALF_PI + percWclerical*TWO_PI, PIE);
-    text(nf(percWclerical*100, 2, 1) + "% Female Clericals", 2*width/4, sectionHeight - sectionHeight/4 + 20);
+    arc(2*width/4, sectionWidth/2, sectionWidth/2, sectionWidth/2, -HALF_PI, -HALF_PI + percWclerical*TWO_PI, PIE);
+    text(nf(percWclerical*100, 2, 1) + "% Female Clericals", 2*width/4, sectionWidth - sectionWidth/4 + 20);
     fill(cat2color);
-    arc(2*width/4, sectionHeight/2, sectionHeight/2, sectionHeight/2, -HALF_PI + percWclerical*TWO_PI, -HALF_PI + percWclerical*TWO_PI + percMclerical*TWO_PI, PIE);
-    text(nf(percMclerical*100, 2, 1) + "% Male Clericals", 2*width/4, sectionHeight - sectionHeight/4+40); // create div instead
+    arc(2*width/4, sectionWidth/2, sectionWidth/2, sectionWidth/2, -HALF_PI + percWclerical*TWO_PI, -HALF_PI + percWclerical*TWO_PI + percMclerical*TWO_PI, PIE);
+    text(nf(percMclerical*100, 2, 1) + "% Male Clericals", 2*width/4, sectionWidth - sectionWidth/4+40); // create div instead
 
     fill(cat1color);
-    arc(3*width/4, sectionHeight/2, sectionHeight/2, sectionHeight/2, -HALF_PI, -HALF_PI + percWcustodial*TWO_PI, PIE);
-    text(nf(percWcustodial*100, 2, 1) + "% Female Custodials", 3*width/4, sectionHeight - sectionHeight/4 + 20);
+    arc(3*width/4, sectionWidth/2, sectionWidth/2, sectionWidth/2, -HALF_PI, -HALF_PI + percWcustodial*TWO_PI, PIE);
+    text(nf(percWcustodial*100, 2, 1) + "% Female Custodials", 3*width/4, sectionWidth - sectionWidth/4 + 20);
     fill(cat2color);
-    arc(3*width/4, sectionHeight/2, sectionHeight/2, sectionHeight/2, -HALF_PI + percWcustodial*TWO_PI, -HALF_PI + percWcustodial*TWO_PI + percMcustodial*TWO_PI, PIE);
-    text(nf(percMcustodial*100, 2, 1) + "% Male Custodials", 3*width/4, sectionHeight - sectionHeight/4+40); // create div instead
+    arc(3*width/4, sectionWidth/2, sectionWidth/2, sectionWidth/2, -HALF_PI + percWcustodial*TWO_PI, -HALF_PI + percWcustodial*TWO_PI + percMcustodial*TWO_PI, PIE);
+    text(nf(percMcustodial*100, 2, 1) + "% Male Custodials", 3*width/4, sectionWidth - sectionWidth/4+40); // create div instead
 
     pop();
 
     // temporary section break -- take out when buttons become active
     push();
-    translate(0, sectionHeight*sectionindex);
+    translate(0, sectionWidth*sectionindex);
     sectionindex++;
     //noStroke();
 
@@ -219,35 +210,35 @@ function draw() {
     // draw bar graphs for men/women salaries by job category
     noStroke();
     fill(cat1color);
-    rect(width/4, sectionHeight-sectionHeight/4, 50, -map(avgWmanager, 0, 50000, 0, sectionHeight/2));    
-    text("Manager salary (avg): $" + nf(avgWmanager, 0, 2), width/4, sectionHeight-sectionHeight/4+20);
+    rect(width/4, sectionWidth-sectionWidth/4, 50, -map(avgWmanager, 0, 50000, 0, sectionWidth/2));    
+    text("Manager salary (avg): $" + nf(avgWmanager, 0, 2), width/4, sectionWidth-sectionWidth/4+20);
     fill(cat2color);
-    rect(width/4 + 70, sectionHeight-sectionHeight/4, 50, -map(avgMmanager, 0, 50000, 0, sectionHeight/2));
-    text("Manager salary (avg): $" + nf(avgMmanager, 0, 2), width/4, sectionHeight-sectionHeight/4+40);
+    rect(width/4 + 70, sectionWidth-sectionWidth/4, 50, -map(avgMmanager, 0, 50000, 0, sectionWidth/2));
+    text("Manager salary (avg): $" + nf(avgMmanager, 0, 2), width/4, sectionWidth-sectionWidth/4+40);
 
     fill(cat1color);
-    rect(2*width/4, sectionHeight-sectionHeight/4, 50, -map(avgWclerical, 0, 50000, 0, sectionHeight/2));    
-    text("Clerical salary (avg): $" + nf(avgWclerical, 0, 2), 2*width/4, sectionHeight-sectionHeight/4+20);
+    rect(2*width/4, sectionWidth-sectionWidth/4, 50, -map(avgWclerical, 0, 50000, 0, sectionWidth/2));    
+    text("Clerical salary (avg): $" + nf(avgWclerical, 0, 2), 2*width/4, sectionWidth-sectionWidth/4+20);
     fill(cat2color);
-    rect(2*width/4 + 70, sectionHeight-sectionHeight/4, 50, -map(avgMclerical, 0, 50000, 0, sectionHeight/2));
-    text("Clerical salary (avg): $" + nf(avgMclerical, 0, 2), 2*width/4, sectionHeight-sectionHeight/4+40);
+    rect(2*width/4 + 70, sectionWidth-sectionWidth/4, 50, -map(avgMclerical, 0, 50000, 0, sectionWidth/2));
+    text("Clerical salary (avg): $" + nf(avgMclerical, 0, 2), 2*width/4, sectionWidth-sectionWidth/4+40);
 
     fill(cat1color);
-    rect(3*width/4, sectionHeight-sectionHeight/4, 50, -map(avgWcustodial, 0, 50000, 0, sectionHeight/2));    
-    text("Custodial salary (avg): $" + nf(avgWcustodial, 0, 2), 3*width/4, sectionHeight-sectionHeight/4+20);
+    rect(3*width/4, sectionWidth-sectionWidth/4, 50, -map(avgWcustodial, 0, 50000, 0, sectionWidth/2));    
+    text("Custodial salary (avg): $" + nf(avgWcustodial, 0, 2), 3*width/4, sectionWidth-sectionWidth/4+20);
     fill(cat2color);
-    rect(3*width/4 + 70, sectionHeight-sectionHeight/4, 50, -map(avgMcustodial, 0, 50000, 0, sectionHeight/2));
-    text("Custodial salary (avg): $" + nf(avgMcustodial, 0, 2), 3*width/4, sectionHeight-sectionHeight/4+40);
+    rect(3*width/4 + 70, sectionWidth-sectionWidth/4, 50, -map(avgMcustodial, 0, 50000, 0, sectionWidth/2));
+    text("Custodial salary (avg): $" + nf(avgMcustodial, 0, 2), 3*width/4, sectionWidth-sectionWidth/4+40);
 
     pop();
 
     //new section for race
     push();
-    translate(0, sectionHeight*sectionindex);
+    translate(0, sectionWidth*sectionindex);
     sectionindex++;
     //noStroke();
     fill(255);
-    rect(0, 0, width, sectionHeight);
+    rect(0, 0, width, sectionWidth);
     
     //calculate avg salaries for white vs. non-white men and women
     var PoCwomen = [];
@@ -269,29 +260,29 @@ function draw() {
     // draw bar graphs for men/women salaries by race
     noStroke();
     fill(cat1color);
-    rect(width-width/2, sectionHeight-sectionHeight/4, 50, -map(avgPoCw, 0, 50000, 0, sectionHeight/2));    
-    text("Person of color salary (avg): $" + nf(avgPoCw, 0, 2), width-width/2, sectionHeight-sectionHeight/4+20);
+    rect(width-width/2, sectionWidth-sectionWidth/4, 50, -map(avgPoCw, 0, 50000, 0, sectionWidth/2));    
+    text("Person of color salary (avg): $" + nf(avgPoCw, 0, 2), width-width/2, sectionWidth-sectionWidth/4+20);
     fill(cat2color);
-    rect(width-width/2+70, sectionHeight-sectionHeight/4, 50, -map(avgPoCm, 0, 50000, 0, sectionHeight/2));
-    text("Person of color salary (avg): $" + nf(avgPoCm, 0, 2), width-width/2, sectionHeight-sectionHeight/4+40);
+    rect(width-width/2+70, sectionWidth-sectionWidth/4, 50, -map(avgPoCm, 0, 50000, 0, sectionWidth/2));
+    text("Person of color salary (avg): $" + nf(avgPoCm, 0, 2), width-width/2, sectionWidth-sectionWidth/4+40);
 
     noStroke();
     fill(cat1color);
-    rect(width-width/4, sectionHeight-sectionHeight/4, 50, -map(avgwhiteW, 0, 50000, 0, sectionHeight/2));    
-    text("White salary (avg): $" + nf(avgwhiteW, 0, 2), width-width/4, sectionHeight-sectionHeight/4+20);
+    rect(width-width/4, sectionWidth-sectionWidth/4, 50, -map(avgwhiteW, 0, 50000, 0, sectionWidth/2));    
+    text("White salary (avg): $" + nf(avgwhiteW, 0, 2), width-width/4, sectionWidth-sectionWidth/4+20);
     fill(cat2color);
-    rect(width-width/4+70, sectionHeight-sectionHeight/4, 50, -map(avgwhiteM, 0, 50000, 0, sectionHeight/2));
-    text("White salary (avg): $" + nf(avgwhiteM, 0, 2), width-width/4, sectionHeight-sectionHeight/4+40);
+    rect(width-width/4+70, sectionWidth-sectionWidth/4, 50, -map(avgwhiteM, 0, 50000, 0, sectionWidth/2));
+    text("White salary (avg): $" + nf(avgwhiteM, 0, 2), width-width/4, sectionWidth-sectionWidth/4+40);
 
     pop();
 
 
     push();
-    translate(0, sectionHeight*sectionindex);
+    translate(0, sectionWidth*sectionindex);
     sectionindex++;
     //noStroke();
     fill(255);
-    rect(0, 0, width, sectionHeight);
+    rect(0, 0, width, sectionWidth);
     
 
 }
