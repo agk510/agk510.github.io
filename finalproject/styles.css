@@ -7,6 +7,20 @@ body {
   /*font-family: 'Roboto Slab', serif;*/
 }
 
+#title {
+  position: fixed;
+  width: 100%;
+}
+
+#button {
+  position: relative;
+  right: 5%;
+}
+
+#h1{
+  font-size: 30px;
+}
+
 #sub {
   font-size: 13px;
   color: rgba(255, 255, 255, 0.5);
