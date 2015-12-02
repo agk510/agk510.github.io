@@ -15,11 +15,13 @@ body {
   z-index: 21;
   font-size: 45px;
   opacity: 80%;
+  font-size: 30px;
 }
 
 #button {
   position: relative;
   right: 5%;
+  font-size: 20px;
 }
 
 #h1{
