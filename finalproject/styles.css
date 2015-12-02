@@ -4,6 +4,7 @@ body {
   margin: 0;
   padding: 0;
   line-height: 0;
+  font-family: 'helvetica', sans-serif;
 }
 
 #title {
@@ -16,27 +17,57 @@ body {
   padding-top: 30px;
   padding-left: 20px;
   color: #e5f0ff;
-  font-family: 'helvetica', sans-serif;
 }
 
 #button {
   position: absolute;
   right: 10%;
-  font-size: 20px;
+  font-size: 15px;
+  vertical-align: bottom;
 }
 
 #sec1 {
-  padding-right: 15px;
+  padding-left: 15px;
   color: #e5f0ff;
   vertical-align: bottom;
 }
 
 #sec2 {
-  padding-right: 15px;
+  padding-left: 15px;
   color: #e5f0ff;
+  vertical-align: bottom;
 }
 
 #sec3 {
-  padding-right: 15px;
+  padding-left: 15px;
   color: #e5f0ff;
+  vertical-align: bottom;
+}
+
+#sec4 {
+  padding-left: 15px;
+  color: #e5f0ff;
+  vertical-align: bottom;
+}
+
+#sec5 {
+  padding-left: 15px;
+  color: #e5f0ff;
+  vertical-align: bottom;
+}
+
+
+#heading {
+  color: #e5f0ff;
+  font-size: 20px;
+}
+
+#subheading {
+  color: 'white';
+  font-size: 15px;
+}
+
+#details {
+  color: #006cff;
+  font-size: 10px;
 }

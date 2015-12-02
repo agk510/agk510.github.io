@@ -17,18 +17,26 @@ function preload() {
 }
 
 function setup() {
-	  window.resizeTo(500, 800);
+	  // window.resizeTo(500, 800); // TO DO: determine best viewing size for scrolling
 	  canvas = createCanvas(3000, 700);
     canvas.position(0,80);
     
     var title = createDiv("Is this gender discrimination?");
     title.parent("title");
     
-    
     // // TO DO: create section titles to link buttons to 
     // var sec1 = createElement("h1", "Title of Section 1");
     // sec1.position(500,100);
     // sec1.id("sec1");
+    
+    // var intro = createDiv("In 1989, a company was sued for gender discrimination in employee salaries.");
+    // intro.parent("heading");
+    // intro.position(10, 100);
+    
+    // var subintro = createDiv("The following information is taken from data released by the company during the lawsuit.");
+    // subintro.parent("subheading");
+    // subintro.position(10, 150);
+    
     
     ellipseMode(CENTER);
     textAlign(CENTER);
