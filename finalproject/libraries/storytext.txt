@@ -1,2 +1,17 @@
 In 1989, a company was sued for gender discrimination in employee salaries.
-The following information is taken from data released by the company under question.
+The following information is taken from data released by the company during the lawsuit.
+Let’s take a closer look to see whether this company was indeed paying female employees less than male employees.
+Scroll to the right to continue…
+ 
+Demographic Breakdown by Gender
+At the time of the lawsuit, the staff gender breakdown was XX% women and YY% men.
+Note: Transgender people are not accounted for in the company’s records.
+ 
+Average Salary by Gender
+Overall, women averaged $XXX less than men at the time of the lawsuit (1989).
+ 
+Average Beginning Salary by Gender
+Women averaged $YYY less than men at the time they were hired.
+ 
+sdfds
+sdfs

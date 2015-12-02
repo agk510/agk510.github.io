@@ -38,8 +38,14 @@ function draw() {
     var bgcolor = '#e5f0ff'; // background strip color
     var Wcolor = '#80ccff'; // color representing women in all graphs/charts
     var Mcolor = '#006cff'; // color reporesenting men in all graphs/charts
-  
-    pie(.6, Wcolor, .4, Mcolor);
+    
+    background(255);
+    
+    // create blue background stripe for charts and graphs sections
+    fill(bgcolor);
+    noStroke();
+    rect(0, 0, width, 400);
+
 }
 
 // function draw() {
@@ -492,11 +498,11 @@ function pie(perc1, color1, perc2, color2) {
     var pieH = 200;
 
     noStroke();
-    fill(color1);
-    arc(0, 0, pieW, pieH, -HALF_PI, -HALF_PI - perc1*TWO_PI, PIE);
-    
     fill(color2);
-    arc(0, 0, pieW, pieH, -HALF_PI - perc1*TWO_PI, -HALF_PI - perc1*TWO_PI - perc2*TWO_PI, PIE);
+    arc(0, 0, pieW, pieH, -HALF_PI, -HALF_PI + perc2*TWO_PI, PIE);
+    
+    fill(color1);
+    arc(0, 0, pieW, pieH, -HALF_PI + perc2*TWO_PI, -HALF_PI + perc2*TWO_PI + perc1*TWO_PI, PIE);
     pop();
 }
     
