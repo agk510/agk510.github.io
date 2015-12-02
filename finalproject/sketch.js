@@ -11,24 +11,24 @@ var age = [];
 var gender = [];
 
 var canvas;
-var sectionWidth = 500;
+
 
 function preload() {
     table = loadTable("http://agk510.github.io/finalproject/libraries/empdat.csv", "csv", "header"); // load source, parse when done
 }
 
 function setup() {
-	  canvas = createCanvas(sectionWidth*6, 1200);
+	  canvas = createCanvas(3000, 700);
     canvas.position(0,80);
     
-    var title = createDiv("SAMPLE TITLE");
-    title.id("title");
+    var title = createDiv("Is this gender discrimination?");
+    title.parent("title");
     
     
-    // // TO DO: create section titles to link buttons to 
-    // var sec1 = createElement("h1", "Title of Section 1");
-    // sec1.position(500,0);
-    // sec1.id("sec1");
+    // TO DO: create section titles to link buttons to 
+    var sec1 = createElement("h1", "Title of Section 1");
+    sec1.position(500,100);
+    sec1.id("sec1");
     
     ellipseMode(CENTER);
     textAlign(CENTER);
@@ -50,7 +50,6 @@ function draw() {
 		var graphH = 200;
 	
     push();
-    translate(50, 600);
     pie(.6, Wcolor, .4, Mcolor);
     pop();
 		
@@ -479,15 +478,17 @@ function plot(xarray, yarray, xmax, ymax) {
 }
 
 function pie(perc1, color1, perc2, color2) {
+    push();
+
     var pieW = 200;
     var pieH = 200;
 
-    //draw pie chart to show overall gender breakdown in firm
     noStroke();
     fill(color1);
-    arc(0, 0, pieW, pieH, -HALF_PI, -HALF_PI + perc1*TWO_PI, PIE);
+    arc(0, 0, pieW, pieH, -HALF_PI, -HALF_PI - perc1*TWO_PI, PIE);
     
     fill(color2);
-    arc(0, 0, pieW, pieH, -HALF_PI + perc1*TWO_PI, -HALF_PI + perc1*TWO_PI + perc2*TWO_PI, PIE);
+    arc(0, 0, pieW, pieH, -HALF_PI - perc1*TWO_PI, -HALF_PI - perc1*TWO_PI - perc2*TWO_PI, PIE);
+    pop();
 }
     
