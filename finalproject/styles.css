@@ -23,7 +23,6 @@ body {
   position: absolute;
   right: 10%;
   font-size: 15px;
-  vertical-align: bottom;
 }
 
 #sec1 {
@@ -56,18 +55,22 @@ body {
   vertical-align: bottom;
 }
 
-
 #heading {
-  color: #e5f0ff;
+  color: #333333;
   font-size: 20px;
+  z-index: 11;
+  /*width: 200px;*/
+  /*word-wrap: break-word;*/
 }
 
 #subheading {
-  color: 'white';
+  color: #333333;
   font-size: 15px;
+  z-index: 11;
 }
 
 #details {
   color: #006cff;
   font-size: 10px;
+  z-index: 11;
 }

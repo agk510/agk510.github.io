@@ -21,22 +21,37 @@ function setup() {
 	  canvas = createCanvas(3000, 700);
     canvas.position(0,80);
     
-    var title = createDiv("Is this gender discrimination?");
-    title.parent("title");
+    var toptitle = createDiv("Is this gender discrimination?");
+    toptitle.parent("title");
     
     // // TO DO: create section titles to link buttons to 
     // var sec1 = createElement("h1", "Title of Section 1");
     // sec1.position(500,100);
     // sec1.id("sec1");
     
-    // var intro = createDiv("In 1989, a company was sued for gender discrimination in employee salaries.");
-    // intro.parent("heading");
-    // intro.position(10, 100);
+    
+    // create divs for text
+    
+    var intro = createDiv("In 1989, a company was sued for gender discrimination in employee salaries.");
+    intro.id("heading");
+    intro.position(10, 100);
     
     // var subintro = createDiv("The following information is taken from data released by the company during the lawsuit.");
-    // subintro.parent("subheading");
+    // subintro.id("subheading");
     // subintro.position(10, 150);
     
+    var subintro = createDiv("The following information is taken from data released by the company during the lawsuit. Let’s take a closer look to see whether this company was indeed paying female employees less than male employees.");
+    subintro.id("subheading");
+    subintro.position(10, 300);
+
+    // var intronotes = createDiv("Let’s take a closer look to see whether this company was indeed paying female employees less than male employees.");
+    // intronotes.parent("subheading");
+    // intronotes.position(10, 400);
+    
+    var scrolldir = createDiv("Scroll to the right to continue…");
+    scrolldir.id("details");
+    scrolldir.position(10, 500);
+  // TO DO: create more divs for more text
     
     ellipseMode(CENTER);
     textAlign(CENTER);
