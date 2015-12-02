@@ -21,9 +21,9 @@ function setup() {
 	  canvas = createCanvas(sectionWidth*6, 1200);
     canvas.position(0,80);
     
-    var title = createDiv("<b>SAMPLE TITLE<b>");
+    var title = createDiv("SAMPLE TITLE");
     title.id("title");
-    title.position("fixed"); // TO DO: keep playing with this to ensure the buttons appear
+    
     
     // // TO DO: create section titles to link buttons to 
     // var sec1 = createElement("h1", "Title of Section 1");
@@ -40,12 +40,19 @@ function draw() {
     var Wcolor = '#80ccff'; // color representing women in all graphs/charts
     var Mcolor = '#006cff'; // color reporesenting men in all graphs/charts
 		var sectionindex = 0;
-		
+		var pieX = 50;
+    var pieY = 50;
+    var pieW = 200;
+    var pieH = 200;
 		var graphX = 50;
 		var graphY = 700;
 		var graphW = 50;
 		var graphH = 200;
 	
+    push();
+    translate(50, 600);
+    pie(.6, Wcolor, .4, Mcolor);
+    pop();
 		
     // create white background stripe for contextual information section
     fill(255);
