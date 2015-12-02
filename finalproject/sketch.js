@@ -152,25 +152,25 @@ function draw() {
    // draw pie charts for men/women by job category
    noStroke();
    fill(Wcolor);
-   arc(pieX pieY, pieW, pieH, -HALF_PI, -HALF_PI + percWmanagers*TWO_PI, PIE);
+   arc(pieX, pieY, pieW, pieH, -HALF_PI, -HALF_PI + percWmanagers*TWO_PI, PIE);
    text(nf(percWmanagers*100, 2, 1) + "% Female Managers", pieX, pieY + pieH/2 + 20);
    fill(Mcolor);
    arc(pieX, pieY, pieW, pieH, -HALF_PI + percWmanagers*TWO_PI, -HALF_PI + percWmanagers*TWO_PI + percMmanagers*TWO_PI, PIE);
    text(nf(percMmanagers*100, 2, 1) + "% Male Managers", pieX, pieY + pieH/2 + 40); // create div instead
     
-   // fill(Wcolor);
-   // arc(2*width/4, sectionWidth/2, sectionWidth/2, sectionWidth/2, -HALF_PI, -HALF_PI + percWclerical*TWO_PI, PIE);
-   // text(nf(percWclerical*100, 2, 1) + "% Female Clericals", 2*width/4, sectionWidth - sectionWidth/4 + 20);
-   // fill(Mcolor);
-   // arc(2*width/4, sectionWidth/2, sectionWidth/2, sectionWidth/2, -HALF_PI + percWclerical*TWO_PI, -HALF_PI + percWclerical*TWO_PI + percMclerical*TWO_PI, PIE);
-   // text(nf(percMclerical*100, 2, 1) + "% Male Clericals", 2*width/4, sectionWidth - sectionWidth/4+40); // create div instead
+   fill(Wcolor);
+   arc(pieX*2, pieY, pieW, pieH, -HALF_PI, -HALF_PI + percWclerical*TWO_PI, PIE);
+   text(nf(percWclerical*100, 2, 1) + "% Female Clericals", pieX*2, pieY + pieH/2 + 20);
+   fill(Mcolor);
+   arc(pieX*2, pieY, pieW, pieH, -HALF_PI + percWclerical*TWO_PI, -HALF_PI + percWclerical*TWO_PI + percMclerical*TWO_PI, PIE);
+   text(nf(percMclerical*100, 2, 1) + "% Male Clericals", pieX*2, pieY + pieH/2 + 40); // create div instead
 
-   // fill(Wcolor);
-   // arc(3*width/4, sectionWidth/2, sectionWidth/2, sectionWidth/2, -HALF_PI, -HALF_PI + percWcustodial*TWO_PI, PIE);
-   // text(nf(percWcustodial*100, 2, 1) + "% Female Custodials", 3*width/4, sectionWidth - sectionWidth/4 + 20);
-   // fill(Mcolor);
-   // arc(3*width/4, sectionWidth/2, sectionWidth/2, sectionWidth/2, -HALF_PI + percWcustodial*TWO_PI, -HALF_PI + percWcustodial*TWO_PI + percMcustodial*TWO_PI, PIE);
-   // text(nf(percMcustodial*100, 2, 1) + "% Male Custodials", 3*width/4, sectionWidth - sectionWidth/4+40); // create div instead
+   fill(Wcolor);
+   arc(pieX*3, pieY, pieW, pieH, -HALF_PI, -HALF_PI + percWcustodial*TWO_PI, PIE);
+   text(nf(percWcustodial*100, 2, 1) + "% Female Custodials", pieX*3, pieY + pieH/2 + 20);
+   fill(Mcolor);
+   arc(pieX*3, pieY, pieW, pieH, -HALF_PI + percWcustodial*TWO_PI, -HALF_PI + percWcustodial*TWO_PI + percMcustodial*TWO_PI, PIE);
+   text(nf(percMcustodial*100, 2, 1) + "% Male Custodials", pieX*3, pieY + pieH/2 + 40); // create div instead
 
    // pop();
 
