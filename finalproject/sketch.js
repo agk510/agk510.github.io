@@ -17,6 +17,7 @@ function preload() {
 }
 
 function setup() {
+	  window.resizeTo(500, 800);
 	  canvas = createCanvas(3000, 700);
     canvas.position(0,80);
     
@@ -46,6 +47,7 @@ function draw() {
     noStroke();
     rect(0, 0, width, 400);
 
+  
 }
 
 // function draw() {
