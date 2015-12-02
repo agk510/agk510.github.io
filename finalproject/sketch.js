@@ -36,7 +36,7 @@ function setup() {
 }
 
 function draw() {
-    var bgcolor = '#e5f0ff';
+    var bgcolor = '#e5f0ff'; // background strip color
     var Wcolor = '#80ccff'; // color representing women in all graphs/charts
     var Mcolor = '#006cff'; // color reporesenting men in all graphs/charts
 		var sectionindex = 0;
@@ -149,14 +149,14 @@ function draw() {
     var percWcustodial = numWcustodial / (numWcustodial + numMcustodial);
     var percMcustodial = numMcustodial / (numWcustodial + numMcustodial);
 
-   // // draw pie charts for men/women by job category
-   // noStroke();
-   // fill(Wcolor);
-   // arc(width/4, sectionWidth/2, sectionWidth/2, sectionWidth/2, -HALF_PI, -HALF_PI + percWmanagers*TWO_PI, PIE);
-   // text(nf(percWmanagers*100, 2, 1) + "% Female Managers", width/4, sectionWidth - sectionWidth/4 + 20);
-   // fill(Mcolor);
-   // arc(width/4, sectionWidth/2, sectionWidth/2, sectionWidth/2, -HALF_PI + percWmanagers*TWO_PI, -HALF_PI + percWmanagers*TWO_PI + percMmanagers*TWO_PI, PIE);
-   // text(nf(percMmanagers*100, 2, 1) + "% Male Managers", width/4, sectionWidth - sectionWidth/4+40); // create div instead
+   // draw pie charts for men/women by job category
+   noStroke();
+   fill(Wcolor);
+   arc(pieX pieY, pieW, pieH, -HALF_PI, -HALF_PI + percWmanagers*TWO_PI, PIE);
+   text(nf(percWmanagers*100, 2, 1) + "% Female Managers", pieX, pieY + pieH/2 + 20);
+   fill(Mcolor);
+   arc(pieX, pieY, pieW, pieH, -HALF_PI + percWmanagers*TWO_PI, -HALF_PI + percWmanagers*TWO_PI + percMmanagers*TWO_PI, PIE);
+   text(nf(percMmanagers*100, 2, 1) + "% Male Managers", pieX, pieY + pieH/2 + 40); // create div instead
     
    // fill(Wcolor);
    // arc(2*width/4, sectionWidth/2, sectionWidth/2, sectionWidth/2, -HALF_PI, -HALF_PI + percWclerical*TWO_PI, PIE);
