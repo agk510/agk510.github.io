@@ -36,21 +36,14 @@ function setup() {
     intro.id("heading");
     intro.position(10, 100);
     
-    // var subintro = createDiv("The following information is taken from data released by the company during the lawsuit.");
-    // subintro.id("subheading");
-    // subintro.position(10, 150);
-    
     var subintro = createDiv("The following information is taken from data released by the company during the lawsuit. Let’s take a closer look to see whether this company was indeed paying female employees less than male employees.");
     subintro.id("subheading");
     subintro.position(10, 300);
-
-    // var intronotes = createDiv("Let’s take a closer look to see whether this company was indeed paying female employees less than male employees.");
-    // intronotes.parent("subheading");
-    // intronotes.position(10, 400);
     
     var scrolldir = createDiv("Scroll to the right to continue…");
     scrolldir.id("details");
     scrolldir.position(10, 500);
+
   // TO DO: create more divs for more text
     
     ellipseMode(CENTER);
@@ -70,7 +63,16 @@ function draw() {
     noStroke();
     rect(0, 0, width, 400);
 
+    // calculate percentages of women and men in firm
+    var men = countType(gender, "Male");
+    var women = countType(gender, "Female");
+    var percMen = men / (men + women);
+    var percWomen = women / (men + women);
 
+    push();
+    translate(200, 200);
+    pie(percWomen, Wcolor, percMen, Mcolor);
+    pop();
   
 }
 
@@ -371,38 +373,38 @@ function draw() {
 	
 // }
 
-// function parseSource() {
-//   for (var i = 0; i < table.getRowCount(); i++){
-//     edu[i] = Number(table.get(i,1));
-//     jobcat[i] = table.get(i,2);
-//     salary[i] = Number(table.get(i,3));
-//     salbegin[i] = Number(table.get(i,4));
-//     jobtime[i] = Number(table.get(i,5));
-//     prevexp[i] = Number(table.get(i,6));
-//     race[i] = table.get(i,7);
-//     age[i] = Number(table.get(i,8));
-//     gender[i] = table.get(i,9);
-//   }
-// }
+function parseSource() {
+  for (var i = 0; i < table.getRowCount(); i++){
+    edu[i] = Number(table.get(i,1));
+    jobcat[i] = table.get(i,2);
+    salary[i] = Number(table.get(i,3));
+    salbegin[i] = Number(table.get(i,4));
+    jobtime[i] = Number(table.get(i,5));
+    prevexp[i] = Number(table.get(i,6));
+    race[i] = table.get(i,7);
+    age[i] = Number(table.get(i,8));
+    gender[i] = table.get(i,9);
+  }
+}
 
-// function average(array) {   // takes the average of the values in the array (interval-ratio numbers only)
-//     var sum = 0;
-//     for (var i = 0; i < array.length; i++)
-//         sum += array[i];
+function average(array) {   // takes the average of the values in the array (interval-ratio numbers only)
+    var sum = 0;
+    for (var i = 0; i < array.length; i++)
+        sum += array[i];
     
-//     var avg = (sum / array.length);
+    var avg = (sum / array.length);
 
-//     return avg;
-// }
+    return avg;
+}
 
-// function countType (array, type) {  // returns the number of occurrences of type in array
-//     var count = 0;
-//     for (var i = 0; i < array.length; i++)
-//         if (array[i] === type)
-//             count++;
+function countType (array, type) {  // returns the number of occurrences of type in array
+    var count = 0;
+    for (var i = 0; i < array.length; i++)
+        if (array[i] === type)
+            count++;
 
-//     return count;
-// }
+    return count;
+}
 
 // function countSubtype (array, type, subarray, subtype) { // returns the number of occurrences of subtype that correspond with type
 //     var subcount = 0;
@@ -533,14 +535,16 @@ function pie(perc1, color1, perc2, color2) {
 }
 
 function bar(amount1, color1, amount2, color2, max, graphH) {
-   var rectW = 50;
-
    push();
+   
+   var rectW = 50;
+   
    noStroke();
    fill(color1);
    rect(0, 0, rectW, -map(amount1, 0, max, 0, graphH));    
    fill(color2);
    rect(70, 0, rectW, -map(amount2, 0, max, 0, graphH));
+   
    pop();
 }
     
