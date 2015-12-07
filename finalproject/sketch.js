@@ -18,7 +18,7 @@ function preload() {
 
 function setup() {
 	  // window.resizeTo(500, 800); // TO DO: determine best viewing size for scrolling
-	  canvas = createCanvas(3000, 700);
+	canvas = createCanvas(3000, 700);
     canvas.position(0,80);
     
     var toptitle = createDiv("Is this gender discrimination?");
@@ -69,6 +69,7 @@ function draw() {
     fill(bgcolor);
     noStroke();
     rect(0, 0, width, 400);
+
 
   
 }
@@ -485,36 +486,36 @@ function draw() {
 //     return newarray;
 // }
 
-// function plot(xarray, yarray, xmax, ymax) {
-// 	var xcoords = [];
-// 	var ycoords = [];
-// 	var graphwidth = 500; 
-// 	var graphheight = 300;
+function plot(xarray, yarray, xmax, ymax) {
+	var xcoords = [];
+	var ycoords = [];
+	var graphwidth = 500; 
+	var graphheight = 300;
 	
-// 	for (var i = 0; i < xarray.length; i++)
-// 		append(xcoords, map(xarray[i], 0, xmax, 0, graphwidth));
+	for (var i = 0; i < xarray.length; i++)
+		append(xcoords, map(xarray[i], 0, xmax, 0, graphwidth));
 	
-// 	for (var j = 0; j < yarray.length; j++)
-// 		append(ycoords, map(yarray[j], 0, ymax, 0, graphheight));
+	for (var j = 0; j < yarray.length; j++)
+		append(ycoords, map(yarray[j], 0, ymax, 0, graphheight));
 	
 	
-// 	for (var k = 0; k < xcoords.length; k++) { 
-// 		noFill();
-// 		strokeWeight(3);
-//  		ellipse(xcoords[k], -ycoords[k], 10, 10);
-// 	}
+	for (var k = 0; k < xcoords.length; k++) { 
+		noFill();
+		strokeWeight(3);
+ 		ellipse(xcoords[k], -ycoords[k], 10, 10);
+	}
 	
-// 	strokeWeight(1);
-// 	stroke(0);
-// 	line(0, 0, graphwidth, 0);
-// 	line(0, 0, 0, -graphheight);
+	strokeWeight(1);
+	stroke(0);
+	line(0, 0, graphwidth, 0);
+	line(0, 0, 0, -graphheight);
 	
-// 	fill(0);
-// 	textSize(15);
-// 	text(xmax, graphwidth, 20);
-// 	text("$" + nf(ymax, 0, 0), -30, -graphheight);
-// 	return;
-// }
+	fill(0);
+	textSize(15);
+	text(xmax, graphwidth, 20);
+	text("$" + nf(ymax, 0, 0), -30, -graphheight);
+	return;
+}
 
 function pie(perc1, color1, perc2, color2) {
     push();
@@ -529,5 +530,17 @@ function pie(perc1, color1, perc2, color2) {
     fill(color1);
     arc(0, 0, pieW, pieH, -HALF_PI + perc2*TWO_PI, -HALF_PI + perc2*TWO_PI + perc1*TWO_PI, PIE);
     pop();
+}
+
+function bar(amount1, color1, amount2, color2, max, graphH) {
+   var rectW = 50;
+
+   push();
+   noStroke();
+   fill(color1);
+   rect(0, 0, rectW, -map(amount1, 0, max, 0, graphH));    
+   fill(color2);
+   rect(70, 0, rectW, -map(amount2, 0, max, 0, graphH));
+   pop();
 }
     
