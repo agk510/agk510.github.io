@@ -22,43 +22,54 @@ body {
   position: absolute;
   right: 10%;
   font-size: 15px;
+  color: #e5f0ff !important;
+  padding-left: 15px;
+  vertical-align: bottom;
 }
 
 #sec1 {
-  padding-left: 15px;
-  color: #e5f0ff;
-  vertical-align: bottom;
+  left: 600px;
 }
 
 #sec2 {
-  padding-left: 15px;
-  color: #e5f0ff;
-  vertical-align: bottom;
+  left: 1400px;
 }
 
 #sec3 {
-  padding-left: 15px;
-  color: #e5f0ff;
-  vertical-align: bottom;
+  left: 2700px;
 }
 
 #sec4 {
-  padding-left: 15px;
-  color: #e5f0ff;
-  vertical-align: bottom;
+  left: 3700px;
 }
 
 #sec5 {
-  padding-left: 15px;
-  color: #e5f0ff;
-  vertical-align: bottom;
+  left: 4500px;
 }
 
-div {
-  /*font-family: "Georgia";*/
-  /*width: 300px;*/
-  /*add classifications here to affect all divs*/
+
+.bookmarks {
+  position: absolute;
+  font-size: 15px;
+  color: #333333;
+  top: 100px;
+  font-weight: bold;
+  z-index: 20;
 }
+
+/*h1 {
+  NOTE: add classifications here to affect all h1s
+  position: absolute;
+  font-size: 15px;
+  color: #333333;
+  top: 100px;
+}
+*/
+
+
+/*div {
+  NOTE: add classifications here to affect all divs
+}*/
 
 .description {
   z-index: 11;

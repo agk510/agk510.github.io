@@ -25,25 +25,26 @@ function setup() {
     toptitle.parent("title");
     
     // // TO DO: create section titles to link buttons to 
-    var sec1 = createElement("h1", "Overall Gender Breakdown");
-    sec1.position(600,50);
-    sec1.parent("sec1");
+    var sec1 = createDiv("Overall Gender Breakdown");
+    // sec1.position(600,100);
+    sec1.id("sec1");
+    sec1.class("bookmarks");
 
-    var sec2 = createElement("h1", "Breakdown by Job Type");
-    sec1.position(1400,50);
-    sec1.parent("sec1");
+    // var sec2 = createElement("h1", "Breakdown by Job Type");
+    // sec1.position(1400,50);
+    // sec1.parent("sec1");
 
-    var sec3 = createElement("h1", "Breakdown by Race");
-    sec1.position(500,50);
-    sec1.parent("sec1");
+    // var sec3 = createElement("h1", "Breakdown by Race");
+    // sec1.position(500,50);
+    // sec1.parent("sec1");
 
-    var sec4 = createElement("h1", "Breakdown by Education");
-    sec1.position(500,50);
-    sec1.parent("sec1");
+    // var sec4 = createElement("h1", "Breakdown by Education");
+    // sec1.position(500,50);
+    // sec1.parent("sec1");
 
-    var sec5 = createElement("h1", "Breakdown by Age");
-    sec1.position(500,50);
-    sec1.parent("sec1");
+    // var sec5 = createElement("h1", "Breakdown by Age");
+    // sec1.position(500,50);
+    // sec1.parent("sec1");
 
     
     
