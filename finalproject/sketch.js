@@ -17,34 +17,38 @@ function preload() {
 }
 
 function setup() {
-	  // window.resizeTo(500, 800); // TO DO: determine best viewing size for scrolling
-	canvas = createCanvas(6000, 700);
+	  window.resizeTo(400, 800); // TO DO: determine best viewing size for scrolling
+    canvas = createCanvas(6000, 700);
     canvas.position(0,80);
     
     var toptitle = createDiv("Is this gender discrimination?");
     toptitle.parent("title");
     
-    // // TO DO: create section titles to link buttons to 
-    var sec1 = createDiv("Overall Gender Breakdown");
-    // sec1.position(600,100);
+    // section title bookmarks to link buttons to 
+    var sec1 = createDiv("Overall Breakdown by Gender");
+    sec1.position(500,100);
     sec1.id("sec1");
     sec1.class("bookmarks");
 
-    // var sec2 = createElement("h1", "Breakdown by Job Type");
-    // sec1.position(1400,50);
-    // sec1.parent("sec1");
+    var sec2 = createDiv("Breakdown by Job Type");
+    sec2.position(1300,100);
+    sec2.id("sec2");
+    sec2.class("bookmarks");
+   
+    var sec3 = createDiv("Breakdown by Race");
+    sec3.position(2600,100);
+    sec3.id("sec3");
+    sec3.class("bookmarks");
 
-    // var sec3 = createElement("h1", "Breakdown by Race");
-    // sec1.position(500,50);
-    // sec1.parent("sec1");
+    var sec4 = createDiv("Average Salary by Education");
+    sec4.position(3775,100);
+    sec4.id("sec4");
+    sec4.class("bookmarks");
 
-    // var sec4 = createElement("h1", "Breakdown by Education");
-    // sec1.position(500,50);
-    // sec1.parent("sec1");
-
-    // var sec5 = createElement("h1", "Breakdown by Age");
-    // sec1.position(500,50);
-    // sec1.parent("sec1");
+    var sec5 = createDiv("Average Salary by Age");
+    sec5.position(4600,100);
+    sec5.id("sec5");
+    sec5.class("bookmarks");
 
     
     
@@ -59,7 +63,7 @@ function setup() {
     subintro.class("description");
     subintro.position(0, 350);
     
-    var scrolldir = createDiv("Scroll to the right to take a closer look to see whether this company was indeed paying female employees less than male employees.");
+    var scrolldir = createDiv("Scroll to the right to take a closer look at whether this company was indeed paying female employees less than male employees.");
     scrolldir.id("details");
     scrolldir.class("description");
     scrolldir.position(0, 500);
@@ -394,7 +398,7 @@ function plot(xarray, yarray, xmax, ymax, xunit, yunit) {
 	var xcoords = [];
 	var ycoords = [];
 	var graphwidth = 500; 
-	var graphheight = 300;
+	var graphheight = 250;
 	
 	for (var i = 0; i < xarray.length; i++)
 		append(xcoords, map(xarray[i], 0, xmax, 0, graphwidth));

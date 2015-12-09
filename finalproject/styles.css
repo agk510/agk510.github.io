@@ -22,54 +22,21 @@ body {
   position: absolute;
   right: 10%;
   font-size: 15px;
-  color: #e5f0ff !important;
-  padding-left: 15px;
+  padding-left: 20px;
   vertical-align: bottom;
 }
 
-#sec1 {
-  left: 600px;
+a {
+  color: #e5f0ff;
 }
-
-#sec2 {
-  left: 1400px;
-}
-
-#sec3 {
-  left: 2700px;
-}
-
-#sec4 {
-  left: 3700px;
-}
-
-#sec5 {
-  left: 4500px;
-}
-
 
 .bookmarks {
-  position: absolute;
-  font-size: 15px;
+  font-size: 20px;
   color: #333333;
-  top: 100px;
   font-weight: bold;
   z-index: 20;
+  width: 500px;
 }
-
-/*h1 {
-  NOTE: add classifications here to affect all h1s
-  position: absolute;
-  font-size: 15px;
-  color: #333333;
-  top: 100px;
-}
-*/
-
-
-/*div {
-  NOTE: add classifications here to affect all divs
-}*/
 
 .description {
   z-index: 11;
