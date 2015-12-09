@@ -34,21 +34,24 @@ function setup() {
     
     var intro = createDiv("In 1989, a company was sued for gender discrimination in employee salaries.");
     intro.id("heading");
-    intro.position(10, 100);
+    intro.class("description");
+    intro.position(0, 100);
     
-    var subintro = createDiv("The following information is taken from data released by the company during the lawsuit. Let’s take a closer look to see whether this company was indeed paying female employees less than male employees.");
+    var subintro = createDiv("The following information is taken from data released by the company during the lawsuit. The company's identity remains unknown.");
     subintro.id("subheading");
-    subintro.position(10, 300);
+    subintro.class("description");
+    subintro.position(0, 350);
     
-    var scrolldir = createDiv("Scroll to the right to continue…");
+    var scrolldir = createDiv("Scroll to the right to take a closer look to see whether this company was indeed paying female employees less than male employees.");
     scrolldir.id("details");
-    scrolldir.position(10, 500);
+    scrolldir.class("description");
+    scrolldir.position(0, 500);
 
   // TO DO: create more divs for more text
     
     ellipseMode(CENTER);
     textAlign(CENTER);
-    // parseSource();
+    parseSource();
 }
 
 function draw() {
@@ -58,10 +61,23 @@ function draw() {
     
     background(255);
     
-    // create blue background stripe for charts and graphs sections
+    // create blue background stripe for charts and graphs section
     fill(bgcolor);
     noStroke();
     rect(0, 0, width, 400);
+
+   // order of canvas drawings
+   // 1. overall gender pie chart
+   // 2. overall gender beginning salary graph
+   // 3. overall gender current salary graph
+   // 4. job type pie charts
+   // 5. job type salary graphs
+   // 6. race pie charts
+   // 7. race salary graphs
+   // 8. education scatter plot
+   // 9. education salary graphs
+   // 10. age scatter plot
+   // 11. age salary graphs
 
     // calculate percentages of women and men in firm
     var men = countType(gender, "Male");
@@ -70,65 +86,29 @@ function draw() {
     var percWomen = women / (men + women);
 
     push();
-    translate(200, 200);
+    translate(600, 200);
     pie(percWomen, Wcolor, percMen, Mcolor);
     pop();
+
+    // calculate average current salaries for men and women
+    var womenSal = [];
+    womenSal = getArray(salary, gender, "Female");
+    var avgWomanSal = average(womenSal);
+    var menSal = [];
+    menSal = getArray(salary, gender, "Male");
+    var avgManSal = average(menSal);
   
+  // calculate average beginning salary for each gender
+    var begW = [];
+    begW = getArray(salbegin, gender, "Female");
+    var avgBegW = average(begW);
+    var begM = [];
+    begM = getArray(salbegin, gender, "Male");
+    var avgBegM = average(begM);
+
+
 }
 
-// function draw() {
-//     var bgcolor = '#e5f0ff'; // background strip color
-//     var Wcolor = '#80ccff'; // color representing women in all graphs/charts
-//     var Mcolor = '#006cff'; // color reporesenting men in all graphs/charts
-		
-//     var sectionindex = 0;
-// 		var pieX = 50;
-//     var pieY = 50;
-//     var pieW = 200;
-//     var pieH = 200;
-// 		var graphX = 50;
-// 		var graphY = 700;
-// 		var graphW = 50;
-// 		var graphH = 200;
-	
-//     push();
-//     pie(.6, Wcolor, .4, Mcolor);
-//     pop();
-		
-//     // create white background stripe for contextual information section
-//     fill(255);
-//     noStroke();
-//     rect(0, 0, width, 300);
-    
-//     // create blue background stripe for charts and graphs sections
-//     fill(bgcolor);
-//   	rect(0, 400, width, 400);
-  	
-//   	// create white background stripe for additional info/explanation sections
-//   	fill(255);
-//   	rect(0, 800, width, 300);
-    
-//     // new section for first dataset: overall gender breakdown
-//     push();
-//     translate(sectionWidth*sectionindex,0);
-//     sectionindex++;
-   
-//    // calculate percentages of women and men in firm
-//     var men = countType(gender, 'Male');
-//     var women = countType(gender, 'Female');
-//     var percMen = men / (men + women);
-//     var percWomen = women / (men + women);
-
-//    	//draw pie chart to show overall gender breakdown in firm
-//    	noStroke();
-//    	fill(Wcolor);
-//    	arc(pieX, pieY, pieW, pieH, -HALF_PI, -HALF_PI + percWomen*TWO_PI, PIE);
-//    	text(nf(percWomen*100, 2, 1) + "% Women", pieX, pieY + pieH/2 + 20);
-//     fill(Mcolor);
-//     arc(pieX, pieY, pieW, pieH, -HALF_PI + percWomen*TWO_PI, -HALF_PI + percWomen*TWO_PI + percMen*TWO_PI, PIE);
-//   	text(nf(percMen*100, 2, 1) + "% Men", pieX, pieY + pieH/2 +40); // create div instead?
-    
-//     pop();
     
     
 //     // new section for average salaries by gender
