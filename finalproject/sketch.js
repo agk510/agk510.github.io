@@ -7,7 +7,7 @@ var jobcat = [];
 var salary = [];
 var salbegin = [];
 var jobtime = [];
-var prevexp = [];
+var prevexp = []; // DECIDE WHETHER TO USE PREVEXP OR DELETE UNECESSARY VAR
 var race = [];
 var age = [];
 var gender = [];
@@ -90,6 +90,19 @@ function draw() {
     pie(percWomen, Wcolor, percMen, Mcolor);
     pop();
 
+    // calculate average beginning salary for each gender
+    var begW = [];
+    begW = getArray(salbegin, gender, "Female");
+    var avgBegW = average(begW);
+    var begM = [];
+    begM = getArray(salbegin, gender, "Male");
+    var avgBegM = average(begM);
+
+    push();
+    translate(900, 300);
+    bar(avgBegW, Wcolor, avgBegM, Mcolor, 50000);
+    pop();
+
     // calculate average current salaries for men and women
     var womenSal = [];
     womenSal = getArray(salary, gender, "Female");
@@ -98,13 +111,10 @@ function draw() {
     menSal = getArray(salary, gender, "Male");
     var avgManSal = average(menSal);
   
-  // calculate average beginning salary for each gender
-    var begW = [];
-    begW = getArray(salbegin, gender, "Female");
-    var avgBegW = average(begW);
-    var begM = [];
-    begM = getArray(salbegin, gender, "Male");
-    var avgBegM = average(begM);
+    push();
+    translate(1100, 300);
+    bar(avgWomanSal, Wcolor, avgManSal, Mcolor, 50000);
+    pop();
 
 
 }
@@ -395,23 +405,23 @@ function countType (array, type) {  // returns the number of occurrences of type
 //     return subcount;
 // }
 
-// function findmin (array) { // returns the minimum value in the array
-//     var min = array[0];
-//     for (var i = 1; i < array.length; i++)
-//         if (array[i] < min)
-//             min = array[i];
+function findmin (array) { // returns the minimum value in the array
+    var min = array[0];
+    for (var i = 1; i < array.length; i++)
+        if (array[i] < min)
+            min = array[i];
 
-//     return min;
-// }
+    return min;
+}
 
-// function findmax (array) { // returns the maximum value in the array
-//     var max = array[0];
-//     for (var i = 1; i < array.length; i++)
-//         if (array[i] > max)
-//             max = array[i];
+function findmax (array) { // returns the maximum value in the array
+    var max = array[0];
+    for (var i = 1; i < array.length; i++)
+        if (array[i] > max)
+            max = array[i];
 
-//     return max;
-// }
+    return max;
+}
 
 // // function percentageBreakdown(array, cat1, cat2, cat3) { //
 // //     var sum1 = 0;
@@ -450,23 +460,23 @@ function countType (array, type) {  // returns the number of occurrences of type
 
 // // }
 
-// function getArray(array, subarray, subtype, subarray2, subtype2) { // something is wrong with the filtering, returns same array for white women and men and for PoC women and men
-//     var newarray = [];
-//     for (var i = 0; i < subarray.length; i++)
-//         if (subarray[i] === subtype && subarray2[i] === subtype2)
-//             append(newarray, array[i]);
+function getArray(array, subarray, subtype, subarray2, subtype2) { // something is wrong with the filtering, returns same array for white women and men and for PoC women and men
+    var newarray = [];
+    for (var i = 0; i < subarray.length; i++)
+        if (subarray[i] === subtype && subarray2[i] === subtype2)
+            append(newarray, array[i]);
     
-//     return newarray;
-// }
+    return newarray;
+}
 
-// function getArray(array, subarray, subtype) {
-//     var newarray = [];
-//     for (var i = 0; i < subarray.length; i++)
-//         if (subarray[i] === subtype)
-//             append(newarray, array[i]);
+function getArray(array, subarray, subtype) {
+    var newarray = [];
+    for (var i = 0; i < subarray.length; i++)
+        if (subarray[i] === subtype)
+            append(newarray, array[i]);
     
-//     return newarray;
-// }
+    return newarray;
+}
 
 function plot(xarray, yarray, xmax, ymax) {
 	var xcoords = [];
@@ -514,10 +524,11 @@ function pie(perc1, color1, perc2, color2) {
     pop();
 }
 
-function bar(amount1, color1, amount2, color2, max, graphH) {
+function bar(amount1, color1, amount2, color2, max) {
    push();
    
    var rectW = 50;
+   var graphH = 200;
    
    noStroke();
    fill(color1);
