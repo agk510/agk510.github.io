@@ -3,7 +3,6 @@ html,
 body {
   margin: 0;
   padding: 0;
-  line-height: 0;
   font-family: 'helvetica', sans-serif;
 }
 
@@ -55,22 +54,29 @@ body {
   vertical-align: bottom;
 }
 
+div {
+  /*font-family: "Georgia";*/
+  /*width: 300px;*/
+  /*add classifications here to affect all divs*/
+}
+
+.description {
+  z-index: 11;
+  width: 300px;
+  padding-left: 50px;
+}
+
 #heading {
   color: #333333;
-  font-size: 20px;
-  z-index: 11;
-  /*width: 200px;*/
-  /*word-wrap: break-word;*/
+  font-size: 30px;
 }
 
 #subheading {
   color: #333333;
-  font-size: 15px;
-  z-index: 11;
+  font-size: 20px;
 }
 
 #details {
   color: #006cff;
-  font-size: 10px;
-  z-index: 11;
+  font-size: 20px;
 }
