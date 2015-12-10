@@ -44,17 +44,17 @@ a {
   padding-left: 50px;
 }
 
-#heading {
+.heading {
   color: #333333;
   font-size: 30px;
 }
 
-#subheading {
+.subheading {
   color: #333333;
   font-size: 20px;
 }
 
-#details {
+.details {
   color: #006cff;
   font-size: 20px;
 }

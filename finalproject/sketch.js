@@ -54,21 +54,69 @@ function setup() {
     
     // create divs for text    
     var intro = createDiv("In 1989, a company was sued for gender discrimination in employee salaries.");
-    intro.id("heading");
+    intro.class("heading");
     intro.class("description");
     intro.position(0, 100);
     
     var subintro = createDiv("The following information is taken from data released by the company during the lawsuit. The company's identity remains unknown.");
-    subintro.id("subheading");
+    subintro.class("subheading");
     subintro.class("description");
     subintro.position(0, 350);
     
     var scrolldir = createDiv("Scroll to the right to take a closer look at whether this company was indeed paying female employees less than male employees.");
-    scrolldir.id("details");
+    scrolldir.class("details");
     scrolldir.class("description");
     scrolldir.position(0, 500);
 
+    var desGender = createDiv("Of the " + 999 + " people on staff, " + 45 + "% were women and " + 55 + "% were men.\nNote: Transgender people are not accounted for in the company’s records.");
+    desGender.class("details");
+    desGender.class("description");
+    desGender.position(450, 500);
+
+
+    var graphGenderbeg = createDiv("Average Beginning Salary by Gender");
+    graphGenderbeg.class("subheading");
+    graphGenderbeg.class("description");
+    graphGenderbeg.position(600, 150);
+
+
+    var desGenderbeg = createDiv("Women averaged $" + 999 + " less than men at the time they were hired.\nNote: All amounts in 1989 US dollars, not adjusted for inflation.");
+    desGenderbeg.class("details");
+    desGenderbeg.class("description");
+    desGenderbeg.position(600, 500);
+
+    var graphGender = createDiv("Average Current Salary by Gender");
+    graphGender.class("subheading");
+    graphGender.class("description");
+    graphGender.position(900, 150);
+
+   var desGendercur = createDiv("Women averaged $" + 999 + " less than men at the time of the lawsuit (1989).");
+    desGendercur.class("details");
+    desGendercur.class("description");
+    desGendercur.position(900, 500);
+
+    var piemanager = createDiv("Managers");
+    piemanager.class("subheading");
+    piemanager.class("description");
+    piemanager.position(1300, 150);
+
+    var pieclerk = createDiv("Clerks");
+    pieclerk.class("subheading");
+    pieclerk.class("description");
+    pieclerk.position(1550, 150);
+
+    var piecustodian = createDiv("Custodians");
+    piecustodian.class("subheading");
+    piecustodian.class("description");
+    piecustodian.position(1800, 150);
+
+    var desJobtype = createDiv("The company had three job categories: managerial, clerical and custodial staff.\nWomen made up " + 999 + "% of managers, " + 999 + "% of clerical workers and 0% of the custodians.");
+    desJobtype.class("details");
+    desJobtype.class("description");
+    desJobtype.position(1300, 500);
+  
   // TO DO: create more divs for more text
+
     
     ellipseMode(CENTER);
     textAlign(CENTER);
