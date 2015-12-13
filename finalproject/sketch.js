@@ -50,7 +50,7 @@ function setup() {
     sec5.id("sec5");
     sec5.class("bookmarks");
 
-    
+    var placeholder = 999;
     
     // create divs for text    
     var intro = createDiv("In 1989, a company was sued for gender discrimination in employee salaries.");
@@ -68,7 +68,7 @@ function setup() {
     scrolldir.class("description");
     scrolldir.position(0, 500);
 
-    var desGender = createDiv("Of the " + 999 + " people on staff, " + 45 + "% were women and " + 55 + "% were men.\nNote: Transgender people are not accounted for in the company’s records.");
+    var desGender = createDiv("Of the " + placeholder + " people on staff, " + placeholder + "% were women and " + placeholder + "% were men.\nNote: Transgender people are not accounted for in the company’s records.");
     desGender.class("details");
     desGender.class("description");
     desGender.position(450, 500);
@@ -80,7 +80,7 @@ function setup() {
     graphGenderbeg.position(600, 150);
 
 
-    var desGenderbeg = createDiv("Women averaged $" + 999 + " less than men at the time they were hired.\nNote: All amounts in 1989 US dollars, not adjusted for inflation.");
+    var desGenderbeg = createDiv("Women averaged $" + placeholder + " less than men at the time they were hired.\nNote: All amounts in 1989 US dollars, not adjusted for inflation.");
     desGenderbeg.class("details");
     desGenderbeg.class("description");
     desGenderbeg.position(600, 500);
@@ -90,7 +90,7 @@ function setup() {
     graphGender.class("description");
     graphGender.position(900, 150);
 
-   var desGendercur = createDiv("Women averaged $" + 999 + " less than men at the time of the lawsuit (1989).");
+   var desGendercur = createDiv("Women averaged $" + placeholder + " less than men at the time of the lawsuit (1989).");
     desGendercur.class("details");
     desGendercur.class("description");
     desGendercur.position(900, 500);
@@ -110,11 +110,57 @@ function setup() {
     piecustodian.class("description");
     piecustodian.position(1800, 150);
 
-    var desJobtype = createDiv("The company had three job categories: managerial, clerical and custodial staff.\nWomen made up " + 999 + "% of managers, " + 999 + "% of clerical workers and 0% of the custodians.");
+    var desJobtype = createDiv("The company had three job categories: managerial, clerical and custodial staff.\nWomen made up " + placeholder + "% of managers, " + placeholder + "% of clerical workers and 0% of the custodians.");
     desJobtype.class("details");
     desJobtype.class("description");
     desJobtype.position(1300, 500);
-  
+
+    var graphmanagers = createDiv("Average Salaries for Managers");
+    graphmanagers.class("subheading");
+    graphmanagers.class("description");
+    graphmanagers.position(2000, 150);
+    
+    var graphclericals = createDiv("Average Salaries for Clerks");
+    graphclericals.class("subheading");
+    graphclericals.class("description");
+    graphclericals.position(2200, 150);
+
+    var mgmtdesc = createDiv("Female managers averaged $" + placeholder + " less than male managers.");
+    mgmtdesc.class("details");
+    mgmtdesc.class("description");
+    mgmtdesc.position(2000, 500);
+
+    var clercdesc = createDiv("Female clerks averaged $" + placeholder + " less than male clerks.");
+    clercdesc.class("details");
+    clercdesc.class("description");
+    clercdesc.position(2200, 500);
+
+    var racedesc = createDiv("Overall, people of color comprised " + placeholder + "% of the company.\nNote: Multiracial people are not accounted for in the company’s records.");
+    racedesc.class("details");
+    racedesc.class("description");
+    racedesc.position(2500, 600);
+
+    var piePOC = createDiv("People of Color");
+    piePOC.class("subheading");
+    piePOC.class("description");
+    piePOC.position(2500, 150);
+
+    var piewhite = createDiv("White People");
+    piewhite.class("subheading");
+    piewhite.class("description");
+    piewhite.position(2800, 150);
+
+    var pocdesc = createDiv(placeholder + "% of the employees of color were women.");
+    pocdesc.class("details");
+    pocdesc.class("description");
+    pocdesc.position(2500, 500);
+
+    var whitedesc = createDiv(placeholder + "% of the white employees were women.");
+    whitedesc.class("details");
+    whitedesc.class("description");
+    whitedesc.position(2800, 500);
+    
+
   // TO DO: create more divs for more text
 
     
