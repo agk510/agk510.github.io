@@ -12,6 +12,19 @@ var race = [];
 var age = [];
 var gender = [];
 
+var men;
+var women;
+var perMen;
+var percWomen;
+var begW = [];
+var avgBegW;
+var begM = [];
+var avgBegM;
+var womenSal = [];
+var avgWomanSal;
+var menSal = [];
+var avgManSal;
+
 function preload() {
     table = loadTable("http://agk510.github.io/finalproject/libraries/empdat.csv", "csv", "header"); // load source, parse when done
 }
@@ -21,6 +34,11 @@ function setup() {
     canvas = createCanvas(6000, 700);
     canvas.position(0,80);
     
+    ellipseMode(CENTER);
+    textAlign(CENTER);
+    parseSource();
+    calc();
+
     var toptitle = createDiv("Is this gender discrimination?");
     toptitle.parent("title");
     
@@ -159,14 +177,64 @@ function setup() {
     whitedesc.class("details");
     whitedesc.class("description");
     whitedesc.position(2800, 500);
-    
 
-  // TO DO: create more divs for more text
+    var graphPOC = createDiv("Average Salaries for People of Color");
+    graphPOC.class("subheading");
+    graphPOC.class("description");
+    graphPOC.position(3050, 150);
+
+    var graphwhite = createDiv("Average Salaries for White People");
+    graphwhite.class("subheading");
+    graphwhite.class("description");
+    graphwhite.position(3250, 150);
+
+    var pocgraphdesc = createDiv("Women of color averaged $" + placeholder + " less than men of color.");
+    pocgraphdesc.class("details");
+    pocgraphdesc.class("description");
+    pocgraphdesc.position(3050, 500);
+
+    var whitegraphdesc = createDiv("White women averaged $" + placeholder + " less than white men.");
+    whitegraphdesc.class("details");
+    whitegraphdesc.class("description");
+    whitegraphdesc.position(3250, 500);
+
+    var edudesc = createDiv("There is a direct correlation between amount of education and pay: people with more education tend to get paid more, on average.\nWomen averaged " + placeholder + " fewer years in school than men.\nNote: Education is measured in total years of schooling, from elementary on up.");
+    edudesc.class("details");
+    edudesc.class("description");
+    edudesc.position(3700, 500);
+
+    var agedesc = createDiv("While salaries among middle-aged men appear to be higher than younger and older men, there doesn't seem to be a strong correlation between age and salary among women.\nWhat is clear, however, is that the salary distribution for men seems to be higher on average than that of women at most ages.");
+    agedesc.class("details");
+    agedesc.class("description");
+    agedesc.position(4500, 500);
+
+    // TO DO: ADD CONCLUDING DESCRIPTION...WHAT DO YOU THINK? GUILTY/NOT GUILTY?
+
+ 
+}
+
+function calc() {
+
+    men = countType(gender, "Male");
+     women = countType(gender, "Female");
+     percMen = men / (men + women);
+     percWomen = women / (men + women);
 
     
-    ellipseMode(CENTER);
-    textAlign(CENTER);
-    parseSource();
+    begW = getArray(salbegin, gender, "Female");
+     avgBegW = average(begW);
+        begM = getArray(salbegin, gender, "Male");
+     avgBegM = average(begM);
+
+
+
+    womenSal = getArray(salary, gender, "Female");
+     avgWomanSal = average(womenSal);
+    menSal = getArray(salary, gender, "Male");
+     avgManSal = average(menSal);
+
+// TO DO: KEEP MOVING THE CALCULATIONS TO THIS FUNCTION. THEN MAKE VAR DEFINITIONS GLOVBALLY UP TOP. THEN FEED VARS INTO TEXT IN SETUP.
+  
 }
 
 function draw() {
@@ -194,10 +262,6 @@ function draw() {
    // 10. conclusion - what do you think?
 
     // 1. calculate percentages of women and men in firm
-    var men = countType(gender, "Male");
-    var women = countType(gender, "Female");
-    var percMen = men / (men + women);
-    var percWomen = women / (men + women);
 
     push();
     translate(600, 200);
@@ -205,12 +269,6 @@ function draw() {
     pop();
 
     // 2. calculate average beginning salary for each gender
-    var begW = [];
-    begW = getArray(salbegin, gender, "Female");
-    var avgBegW = average(begW);
-    var begM = [];
-    begM = getArray(salbegin, gender, "Male");
-    var avgBegM = average(begM);
 
     push();
     translate(800, 300);
@@ -218,13 +276,7 @@ function draw() {
     pop();
 
     // 3. calculate average current salaries for men and women
-    var womenSal = [];
-    womenSal = getArray(salary, gender, "Female");
-    var avgWomanSal = average(womenSal);
-    var menSal = [];
-    menSal = getArray(salary, gender, "Male");
-    var avgManSal = average(menSal);
-  
+    
     push();
     translate(1000, 300);
     bar(avgWomanSal, Wcolor, avgManSal, Mcolor, 50000);
@@ -289,16 +341,7 @@ function draw() {
     bar(avgWclerical, Wcolor, avgMclerical, Mcolor, 50000); // something is wrong with the graphs - the values should not be equal
     pop();
 
-
    // custodial salary data not applicable because all custodial staff are men, hence there is no comparison to be made
-   // var Wcustodials = [];
-   // Wcustodials = getArray(salary, gender, "Female", jobcat, "Custodial");
-   // var avgWcustodial = average(Wcustodials); // average salary for female custodials
-
-   // var Mcustodials = [];
-   // Mcustodials = getArray(salary, gender, "Male", jobcat, "Custodial");
-   // var avgMcustodial = average(Mcustodials); // average salary for male custodials
-
  
    // 6. calculate percentages of men/women by race
     var numWhites = countType(race, 'No');
