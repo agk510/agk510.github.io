@@ -79,9 +79,9 @@ function preload() {
 }
 
 function setup() {
-	  // window.resizeTo(400, 800); // TO DO: determine best viewing size for scrolling
-    canvas = createCanvas(6000, 700);
-    canvas.position(0,80);
+	  // window.resizeTo(700, 800); // TO DO: determine best viewing size for scrolling
+    canvas = createCanvas(6600, 800);
+    canvas.position(0,0);
     
     ellipseMode(CENTER);
     textAlign(CENTER);
@@ -93,178 +93,188 @@ function setup() {
     
     // section title bookmarks to link buttons to 
     var sec1 = createDiv("Overall Breakdown by Gender");
-    sec1.position(500,100);
+    sec1.position(600,125);
     sec1.id("sec1");
     sec1.class("bookmarks");
 
     var sec2 = createDiv("Breakdown by Job Type");
-    sec2.position(1300,100);
+    sec2.position(1800,125);
     sec2.id("sec2");
     sec2.class("bookmarks");
    
     var sec3 = createDiv("Breakdown by Race");
-    sec3.position(2600,100);
+    sec3.position(3350,125);
     sec3.id("sec3");
     sec3.class("bookmarks");
 
     var sec4 = createDiv("Average Salary by Education");
-    sec4.position(3775,100);
+    sec4.position(4750,125);
     sec4.id("sec4");
     sec4.class("bookmarks");
 
     var sec5 = createDiv("Average Salary by Age");
-    sec5.position(4600,100);
+    sec5.position(5500,125);
     sec5.id("sec5");
     sec5.class("bookmarks");
 
-    var placeholder = 999;
+    var sec6 = createDiv("The Verdict");
+    sec6.position(6050, 125);
+    sec6.id("sec6");
+    sec6.class("bookmarks");
     
     // create divs for text    
     var intro = createDiv("In 1989, a company was sued for gender discrimination in employee salaries.");
     intro.class("heading");
     intro.class("description");
-    intro.position(0, 100);
+    intro.class("wide4");
+    intro.position(50, 125);
     
     var subintro = createDiv("The following information is taken from data released by the company during the lawsuit. The company's identity remains unknown.");
     subintro.class("subheading");
     subintro.class("description");
-    subintro.position(0, 350);
+    subintro.class("wide4");
+    subintro.position(50, 350);
     
     var scrolldir = createDiv("Scroll to the right to take a closer look at whether this company was indeed paying female employees less than male employees.");
     scrolldir.class("details");
     scrolldir.class("description");
-    scrolldir.position(0, 500);
+    scrolldir.class("wide4");
+    scrolldir.position(50, 525);
 
     var desGender = createDiv("Of the " + table.getRowCount() + " people on staff, " + nf(percWomen*100, 2, 1) + "% were women and " + nf(percMen*100, 2, 1) + "% were men.\nNote: Transgender people are not accounted for in the company’s records.");
     desGender.class("details");
     desGender.class("description");
-    desGender.position(450, 500);
+    desGender.position(600, 525);
 
 
-    var graphGenderbeg = createDiv("Average Beginning Salary by Gender");
+    var graphGenderbeg = createDiv("Beginning Salaries");
     graphGenderbeg.class("subheading");
     graphGenderbeg.class("description");
-    graphGenderbeg.position(600, 150);
+    graphGenderbeg.class("wide2");    
+    graphGenderbeg.position(1050, 175);
 
 
     var desGenderbeg = createDiv("Women averaged $" +  nf(avgBegM - avgBegW, 0, 2) + " less than men at the time they were hired.\nNote: All amounts in 1989 US dollars, not adjusted for inflation.");
     desGenderbeg.class("details");
     desGenderbeg.class("description");
-    desGenderbeg.position(600, 500);
+    desGenderbeg.position(1000, 525);
 
-    var graphGender = createDiv("Average Current Salary by Gender");
+    var graphGender = createDiv("Current Salaries");
     graphGender.class("subheading");
     graphGender.class("description");
-    graphGender.position(900, 150);
+    graphGender.position(1450, 175);
 
    var desGendercur = createDiv("Women averaged $" + nf(avgManSal - avgWomanSal, 0, 2) + " less than men at the time of the lawsuit (1989).");
     desGendercur.class("details");
     desGendercur.class("description");
-    desGendercur.position(900, 500);
+    desGendercur.position(1400, 525);
 
     var piemanager = createDiv("Managers");
     piemanager.class("subheading");
     piemanager.class("description");
-    piemanager.position(1300, 150);
+    piemanager.position(1850, 170);
 
-    var pieclerk = createDiv("Clerks");
+    var pieclerk = createDiv("Clerical Workers");
     pieclerk.class("subheading");
     pieclerk.class("description");
-    pieclerk.position(1550, 150);
+    pieclerk.position(2075, 170);
 
     var piecustodian = createDiv("Custodians");
     piecustodian.class("subheading");
     piecustodian.class("description");
-    piecustodian.position(1800, 150);
+    piecustodian.position(2350, 170);
 
     var desJobtype = createDiv("The company had three job categories: managerial, clerical and custodial staff.\nWomen made up " + nf(percWmanagers*100, 2, 1) + "% of managers, " + nf(percWclerical*100, 2, 1) + "% of clerical workers and 0% of the custodians.");
     desJobtype.class("details");
     desJobtype.class("description");
-    desJobtype.class("wide6");
-    desJobtype.position(1300, 500);
+    desJobtype.class("wide7");
+    desJobtype.position(1800, 525);
 
-    var graphmanagers = createDiv("Average Salaries for Managers");
+    var graphmanagers = createDiv("Manager Salaries");
     graphmanagers.class("subheading");
     graphmanagers.class("description");
-    graphmanagers.position(2000, 150);
+    graphmanagers.position(2650, 175);
     
-    var graphclericals = createDiv("Average Salaries for Clerks");
+    var graphclericals = createDiv("Clerical Salaries");
     graphclericals.class("subheading");
     graphclericals.class("description");
-    graphclericals.position(2200, 150);
+    graphclericals.position(3000, 175);
 
     var mgmtdesc = createDiv("Female managers averaged $" + nf(avgMmanager - avgWmanager, 0, 2) + " less than male managers.");
     mgmtdesc.class("details");
     mgmtdesc.class("description");
-    mgmtdesc.position(2000, 500);
+    mgmtdesc.position(2600, 525);
 
-    var clercdesc = createDiv("Female clerks averaged $" + nf(avgMclerical - avgWclerical, 0, 2) + " less than male clerks.");
+    var clercdesc = createDiv("Female clercial workers averaged $" + nf(avgMclerical - avgWclerical, 0, 2) + " less than male clerks.");
     clercdesc.class("details");
     clercdesc.class("description");
-    clercdesc.position(2200, 500);
+    clercdesc.position(2950, 525);
 
     var racedesc = createDiv("Overall, people of color comprised " + nf(percPOC*100, 2, 1) + "% of the company.\nNote: Multiracial people are not accounted for in the company’s records.");
     racedesc.class("details");
     racedesc.class("description");
-    racedesc.class("wide6");
-    racedesc.position(2500, 600);
+    racedesc.class("wide4");
+    racedesc.position(3350, 600);
 
     var piePOC = createDiv("People of Color");
     piePOC.class("subheading");
     piePOC.class("description");
-    piePOC.position(2500, 150);
+    piePOC.position(3400, 170);
 
     var piewhite = createDiv("White People");
     piewhite.class("subheading");
     piewhite.class("description");
-    piewhite.position(2800, 150);
+    piewhite.position(3650, 170);
 
     var pocdesc = createDiv(nf(percWpoc*100, 2, 1) + "% of the employees of color were women.");
     pocdesc.class("details");
     pocdesc.class("description");
-    pocdesc.position(2500, 500);
+    pocdesc.class("wide2");
+    pocdesc.position(3350, 525);
 
     var whitedesc = createDiv(nf(percWhites*100, 2, 1) + "% of the white employees were women.");
     whitedesc.class("details");
     whitedesc.class("description");
-    whitedesc.position(2800, 500);
+    whitedesc.class("wide2");
+    whitedesc.position(3600, 525);
 
-    var graphPOC = createDiv("Average Salaries for People of Color");
+    var graphPOC = createDiv("Salaries for People of Color");
     graphPOC.class("subheading");
     graphPOC.class("description");
-    graphPOC.position(3050, 150);
+    graphPOC.position(3925, 175);
 
-    var graphwhite = createDiv("Average Salaries for White People");
+    var graphwhite = createDiv("Salaries for White People");
     graphwhite.class("subheading");
     graphwhite.class("description");
-    graphwhite.position(3250, 150);
+    graphwhite.position(4225, 175);
 
     var pocgraphdesc = createDiv("Women of color averaged $" + nf(avgPoCm - avgPoCw, 0, 2) + " less than men of color.");
     pocgraphdesc.class("details");
     pocgraphdesc.class("description");
-    pocgraphdesc.position(3050, 500);
+    pocgraphdesc.position(3900, 525);
 
     var whitegraphdesc = createDiv("White women averaged $" + nf(avgwhiteM - avgwhiteW, 0, 2) + " less than white men.");
     whitegraphdesc.class("details");
     whitegraphdesc.class("description");
-    whitegraphdesc.position(3250, 500);
+    whitegraphdesc.position(4250, 525);
 
     var edudesc = createDiv("There is a direct correlation between amount of education and pay: people with more education tend to get paid more, on average.\nWomen averaged " + nf(edudiff, 0, 2) + " fewer years in school than men.\nNote: Education is measured in total years of schooling, from elementary on up.");
     edudesc.class("details");
     edudesc.class("description");
     edudesc.class("wide6");
-    edudesc.position(3700, 500);
+    edudesc.position(4600, 525);
 
     var agedesc = createDiv("While salaries among middle-aged men appear to be higher than younger and older men, there doesn't seem to be a strong correlation between age and salary among women.\nWhat is clear, however, is that the salary distribution for men seems to be higher on average than that of women at most ages.");
     agedesc.class("details");
     agedesc.class("description");
     agedesc.class("wide6");
-    agedesc.position(4500, 500);
+    agedesc.position(5350, 525);
 
     var concl = createDiv("What do you think? Is this company guilty of gender discrimination?");
     concl.class("heading");
     concl.class("description");
-    concl.position(5200, 100);
+    concl.class("conclusion");
+    concl.position(6100, 175);
  
 }
 
@@ -389,7 +399,27 @@ function draw() {
   // create blue background stripe for charts and graphs section
   fill(bgcolor);
   noStroke();
-  rect(0, 0, width, 400);
+  rect(0, 100, width, 400);
+
+
+// temporary numbers for format alignment
+  for (var p = 0; p < width; p++) {
+    if (p % 50 === 0) {
+      fill(0);
+      textSize(10);
+      text(p, p, 600);
+    }
+  }
+
+// temporary numbers for format alignment
+  for (var q = 0; q < height; q++) {
+    if (q % 50 === 0) {
+      fill(0);
+      textSize(10);
+      text(q, 10, q);
+    }
+  }
+
 
   // order of canvas drawings
   // 1. overall gender pie chart
@@ -404,115 +434,100 @@ function draw() {
   // 10. conclusion - what do you think?
 
   // 1. calculate percentages of women and men in firm
-
   push();
-  translate(600, 200);
+  translate(750, 300);
   pie(percWomen, Wcolor, percMen, Mcolor);
   pop();
 
-  // 2. calculate average beginning salary for each gender
 
+  // 2. calculate average beginning salary for each gender
   push();
-  translate(800, 300);
+  translate(1050, 400);
   bar(avgBegW, Wcolor, avgBegM, Mcolor, 50000);
   pop();
 
-  // 3. calculate average current salaries for men and women
 
+  // 3. calculate average current salaries for men and women
   push();
-  translate(1000, 300);
+  translate(1450, 400);
   bar(avgWomanSal, Wcolor, avgManSal, Mcolor, 50000);
   pop();
 
+
   // 4. calculate percentages of men/women by job category
-
-
   push();
-  translate(1400, 200);
+  translate(1900, 300);
   pie(percWmanagers, Wcolor, percMmanagers, Mcolor);
   pop();
 
-
-
   push();
-  translate(1650, 200);
+  translate(2150, 300);
   pie(percWclerical, Wcolor, percMclerical, Mcolor);
   pop();
 
-
-
   push();
-  translate(1900, 200);
+  translate(2400, 300);
   pie(percWcustodial+0.0001, Wcolor, percMcustodial-0.0001, Mcolor); // 100% of custodians are men, so I made slight changes to the values to draw a circle instead of arcs
   pop();
 
-  // 5. calculate avg salaries for men and women in different job categories
 
-
+  // // 5. calculate avg salaries for men and women in different job categories
   push();
-  translate(2100, 300);
+  translate(2650, 400);
   bar(avgWmanager, Wcolor, avgMmanager, Mcolor, 50000);
   pop();
 
-
-
   push();
-  translate(2300, 300);
+  translate(3000, 400);
   bar(avgWclerical, Wcolor, avgMclerical, Mcolor, 50000); // something is wrong with the graphs - the values should not be equal
   pop();
+
 
   // custodial salary data not applicable because all custodial staff are men, hence there is no comparison to be made
 
   // 6. calculate percentages of men/women by race
 
   // push();
-  // translate(2700, 400);
+  // translate(3400, 300);
   // pie(percPOC, 'green', percWhites, 'red'); // TODO: decide whether to include this stat. is it useful to see what percentage of the firm is white/POC???
   // pop();
 
-
-
   push();
-  translate(2700, 200);
+  translate(3450, 300);
   pie(percWpoc, Wcolor, percMpoc, Mcolor);
   pop();
 
-
-
   push();
-  translate(2950, 200);
+  translate(3700, 300);
   pie(percWwhites, Wcolor, percMwhites, Mcolor);
   pop();
 
 
-  // 7. calculate avg salaries for white vs. non-white men and women
-
+  // // 7. calculate avg salaries for white vs. non-white men and women
   push();
-  translate(3150, 300);
+  translate(3950, 400);
   bar(avgPoCw, Wcolor, avgPoCm, Mcolor, 50000); // TO DO: troubleshoot why the graphs are equal
   pop();
 
-
   push();
-  translate(3350, 300);
+  translate(4300, 400);
   bar(avgwhiteM, Wcolor, avgwhiteW, Mcolor, 50000); // TO DO: troubleshoot why the graphs are equal
   pop();
 
-  // 8. education scatter plot
 
-
+  // // 8. education scatter plot
   push();
-  translate(3700, 350);
+  translate(4650, 450);
   stroke(Mcolor);
   plot(eduM, menSal, maxEdu, maxSal, 'years', '$');
   stroke(Wcolor);
   plot(eduW, womenSal, maxEdu, maxSal, 'years', '$');
   pop();
+  
 
-  // 9. age scatter plot
-
+  // // 9. age scatter plot
   push();
-  translate(4500, 350);
+  translate(5400, 450);
   stroke(Mcolor);
   plot(agesM, menSal, maxAge, maxSal, 'years', '$');
   stroke(Wcolor);
