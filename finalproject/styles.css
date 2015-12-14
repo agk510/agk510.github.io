@@ -58,3 +58,13 @@ a {
   color: #006cff;
   font-size: 20px;
 }
+
+.image {
+  width: 150px;
+  height: 150px;
+  right: 10px;
+  bottom: 10px;
+  position: fixed;
+  z-index: 20;
+
+}

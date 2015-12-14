@@ -1,17 +1,18 @@
-// TO DO: add descriiptions of each global var
+// Andrew Gordon-Kirsch final project for Data Viz, spring 2015
+
 var canvas;
 var table;
 
+// arrays to store demographic info
 var edu = [];
 var jobcat = [];
 var salary = [];
 var salbegin = [];
-var jobtime = [];
-var prevexp = []; // DECIDE WHETHER TO USE PREVEXP OR DELETE UNECESSARY VAR
 var race = [];
 var age = [];
 var gender = [];
 
+// global vars for calculations
 var men;
 var women;
 var perMen;
@@ -24,13 +25,61 @@ var womenSal = [];
 var avgWomanSal;
 var menSal = [];
 var avgManSal;
+var numWmanagers;
+var numMmanagers;
+var percMmanagers;
+var precWmanagers;
+var numWclerical;
+var numMclerical;
+var percWclerical;
+var percMclerical;
+var numWcustodial;
+var numMcustodial;
+var percWcustodial;
+var percMcustodial;
+var Wmanagers = [];
+var avgWmanager;
+var Mmanagers = [];
+var avgMmanager;
+var Wclericals = [];
+var avgWclerical;
+var Mclericals = [];
+var avgMclerical;
+var numWhites;
+var numPOC;
+var percWhites;
+var percPOC;
+var numWpoc;
+var numMpoc;
+var percMpoc;
+var percWpoc;
+var numWwhites;
+var numMwhites;
+var percMwhites;
+var percWwhites;
+var PoCwomen = [];
+var avgPoCw;
+var PoCmen = [];
+var avgPoCm;
+var whiteWomen = [];
+var avgwhiteW;
+var whiteMen = [];
+var avgwhiteM;
+var maxSal;
+var eduW = [];
+var eduM = [];
+var maxEdu;
+var edudiff;
+var agesW = [];
+var agesM = [];
+var maxAge;
 
 function preload() {
     table = loadTable("http://agk510.github.io/finalproject/libraries/empdat.csv", "csv", "header"); // load source, parse when done
 }
 
 function setup() {
-	  window.resizeTo(400, 800); // TO DO: determine best viewing size for scrolling
+	  // window.resizeTo(400, 800); // TO DO: determine best viewing size for scrolling
     canvas = createCanvas(6000, 700);
     canvas.position(0,80);
     
@@ -86,7 +135,7 @@ function setup() {
     scrolldir.class("description");
     scrolldir.position(0, 500);
 
-    var desGender = createDiv("Of the " + placeholder + " people on staff, " + placeholder + "% were women and " + placeholder + "% were men.\nNote: Transgender people are not accounted for in the company’s records.");
+    var desGender = createDiv("Of the " + table.getRowCount() + " people on staff, " + placeholder + "% were women and " + placeholder + "% were men.\nNote: Transgender people are not accounted for in the company’s records.");
     desGender.class("details");
     desGender.class("description");
     desGender.position(450, 500);
@@ -198,7 +247,7 @@ function setup() {
     whitegraphdesc.class("description");
     whitegraphdesc.position(3250, 500);
 
-    var edudesc = createDiv("There is a direct correlation between amount of education and pay: people with more education tend to get paid more, on average.\nWomen averaged " + placeholder + " fewer years in school than men.\nNote: Education is measured in total years of schooling, from elementary on up.");
+    var edudesc = createDiv("There is a direct correlation between amount of education and pay: people with more education tend to get paid more, on average.\nWomen averaged " + nf(edudiff, 0, 2) + " fewer years in school than men.\nNote: Education is measured in total years of schooling, from elementary on up.");
     edudesc.class("details");
     edudesc.class("description");
     edudesc.position(3700, 500);
@@ -208,6 +257,13 @@ function setup() {
     agedesc.class("description");
     agedesc.position(4500, 500);
 
+    var concl = createDiv("What do you think? Is this company guilty of gender discrimination?");
+    concl.class("heading");
+    concl.class("description");
+    concl.position(5200, 100);
+
+    
+
     // TO DO: ADD CONCLUDING DESCRIPTION...WHAT DO YOU THINK? GUILTY/NOT GUILTY?
 
  
@@ -215,230 +271,247 @@ function setup() {
 
 function calc() {
 
-    men = countType(gender, "Male");
-     women = countType(gender, "Female");
-     percMen = men / (men + women);
-     percWomen = women / (men + women);
+  men = countType(gender, "Male");
+  women = countType(gender, "Female");
+  percMen = men / (men + women);
+  percWomen = women / (men + women);
+
+  
+  begW = getArray(salbegin, gender, "Female");
+  avgBegW = average(begW);
+  begM = getArray(salbegin, gender, "Male");
+  avgBegM = average(begM);
+
+
+  womenSal = getArray(salary, gender, "Female");
+  avgWomanSal = average(womenSal);
+  menSal = getArray(salary, gender, "Male");
+  avgManSal = average(menSal);
+
+
+  numWmanagers = countSubtype(gender, 'Female', jobcat, 'Manager');
+  numMmanagers = countSubtype(gender, 'Male', jobcat, 'Manager');
+  percMmanagers = numMmanagers / (numWmanagers + numMmanagers);
+  percWmanagers = numWmanagers / (numWmanagers + numMmanagers);
+
+
+  numWclerical = countSubtype(gender, 'Female', jobcat, 'Clerical');
+  numMclerical = countSubtype(gender, 'Male', jobcat, 'Clerical');
+  percWclerical = numWclerical / (numWclerical + numMclerical);
+  percMclerical = numMclerical / (numWclerical + numMclerical);
+
+  numWcustodial = countSubtype(gender, 'Female', jobcat, 'Custodial');
+  numMcustodial = countSubtype(gender, 'Male', jobcat, 'Custodial');
+  percWcustodial = numWcustodial / (numWcustodial + numMcustodial);
+  percMcustodial = numMcustodial / (numWcustodial + numMcustodial);
+
+
+  Wmanagers = getArray(salary, gender, "Female", jobcat, "Manager");
+  avgWmanager = average(Wmanagers); // average salary for female managers
+
+
+  Mmanagers = getArray(salary, gender, "Male", jobcat, "Manager");
+  avgMmanager = average(Mmanagers); // average salary for male managers
+
+  Wclericals = getArray(salary, gender, "Female", jobcat, "Clerical");
+  avgWclerical = average(Wclericals); // average salary for female clericals
+  
+  Mclericals = getArray(salary, gender, "Female", jobcat, "Clerical");
+  avgMclerical = average(Mclericals); // average salary for male clericals
+
+  numWhites = countType(race, 'No');
+  numPOC = countType(race, 'Yes');
+  percWhites = numWhites / (numWhites + numPOC);
+  percPOC = numPOC / (numWhites + numPOC);
+
+  numWpoc = countSubtype(gender, 'Female', race, 'No');
+  numMpoc = countSubtype(gender, 'Male', race, 'No');
+  percMpoc = numMpoc / (numWpoc + numMpoc);
+  percWpoc = numWpoc / (numWpoc + numMpoc);
+
+  numWwhites = countSubtype(gender, 'Female', race, 'No');
+  numMwhites = countSubtype(gender, 'Male', race, 'No');
+  percMwhites = numMwhites / (numWwhites + numMwhites);
+  percWwhites = numWwhites / (numWwhites + numMwhites);
 
     
-    begW = getArray(salbegin, gender, "Female");
-     avgBegW = average(begW);
-        begM = getArray(salbegin, gender, "Male");
-     avgBegM = average(begM);
+  PoCwomen = getArray(salary, race, "Yes", gender, "Female");
+  avgPoCw = average(PoCwomen); // average current salary for women of color
 
 
+  PoCmen = getArray(salary, race, "Yes", gender, "Male");
+  avgPoCm = average(PoCmen); // average current salary for men of color
 
-    womenSal = getArray(salary, gender, "Female");
-     avgWomanSal = average(womenSal);
-    menSal = getArray(salary, gender, "Male");
-     avgManSal = average(menSal);
 
-// TO DO: KEEP MOVING THE CALCULATIONS TO THIS FUNCTION. THEN MAKE VAR DEFINITIONS GLOVBALLY UP TOP. THEN FEED VARS INTO TEXT IN SETUP.
-  
+  whiteWomen = getArray(salary, race, "No", gender, "Female");
+  avgwhiteW = average(whiteWomen); // average current salary for white women
+
+
+  whiteMen = getArray(salary, race, "No", gender, "Male");
+  avgwhiteM = average(whiteMen); //average current salary for white men
+
+
+  if (findmax(womenSal) > findmax(menSal))
+      maxSal = findmax(womenSal);
+  else
+      maxSal = findmax(menSal);
+    
+
+  eduW = getArray(edu, gender, "Female");
+  eduM = getArray(edu, gender, "Male");
+    
+
+    
+  if (findmax(eduW) > findmax(eduM))
+      maxEdu = findmax(eduW);
+  else
+      maxEdu = findmax(eduM);
+
+  edudiff = average(eduM) - average(eduW);
+
+
+  agesW = getArray(age, gender, "Female");
+  agesM = getArray(age, gender, "Male");
+
+  if (findmax(agesW) > findmax(agesM))
+      maxAge = findmax(agesW);
+  else
+      maxAge = findmax(agesM);
+
 }
 
 function draw() {
-    var bgcolor = '#e5f0ff'; // background strip color
-    var Wcolor = '#80ccff'; // color representing women in all graphs/charts
-    var Mcolor = '#006cff'; // color reporesenting men in all graphs/charts
-    
-    background(255);
-    
-    // create blue background stripe for charts and graphs section
-    fill(bgcolor);
-    noStroke();
-    rect(0, 0, width, 400);
+  var bgcolor = '#e5f0ff'; // background strip color
+  var Wcolor = '#80ccff'; // color representing women in all graphs/charts
+  var Mcolor = '#006cff'; // color reporesenting men in all graphs/charts
 
-   // order of canvas drawings
-   // 1. overall gender pie chart
-   // 2. overall gender beginning salary graph
-   // 3. overall gender current salary graph
-   // 4. job type pie charts
-   // 5. job type salary graphs
-   // 6. race pie charts
-   // 7. race salary graphs
-   // 8. education scatter plot
-   // 9. age scatter plot
-   // 10. conclusion - what do you think?
+  background(255);
 
-    // 1. calculate percentages of women and men in firm
+  // create blue background stripe for charts and graphs section
+  fill(bgcolor);
+  noStroke();
+  rect(0, 0, width, 400);
 
-    push();
-    translate(600, 200);
-    pie(percWomen, Wcolor, percMen, Mcolor);
-    pop();
+  // order of canvas drawings
+  // 1. overall gender pie chart
+  // 2. overall gender beginning salary graph
+  // 3. overall gender current salary graph
+  // 4. job type pie charts
+  // 5. job type salary graphs
+  // 6. race pie charts
+  // 7. race salary graphs
+  // 8. education scatter plot
+  // 9. age scatter plot
+  // 10. conclusion - what do you think?
 
-    // 2. calculate average beginning salary for each gender
+  // 1. calculate percentages of women and men in firm
 
-    push();
-    translate(800, 300);
-    bar(avgBegW, Wcolor, avgBegM, Mcolor, 50000);
-    pop();
+  push();
+  translate(600, 200);
+  pie(percWomen, Wcolor, percMen, Mcolor);
+  pop();
 
-    // 3. calculate average current salaries for men and women
-    
-    push();
-    translate(1000, 300);
-    bar(avgWomanSal, Wcolor, avgManSal, Mcolor, 50000);
-    pop();
+  // 2. calculate average beginning salary for each gender
 
-    // 4. calculate percentages of men/women by job category
-    var numWmanagers = countSubtype(gender, 'Female', jobcat, 'Manager');
-    var numMmanagers = countSubtype(gender, 'Male', jobcat, 'Manager');
-    var percMmanagers = numMmanagers / (numWmanagers + numMmanagers);
-    var percWmanagers = numWmanagers / (numWmanagers + numMmanagers);
+  push();
+  translate(800, 300);
+  bar(avgBegW, Wcolor, avgBegM, Mcolor, 50000);
+  pop();
 
-    push();
-    translate(1400, 200);
-    pie(percWmanagers, Wcolor, percMmanagers, Mcolor);
-    pop();
+  // 3. calculate average current salaries for men and women
 
-    var numWclerical = countSubtype(gender, 'Female', jobcat, 'Clerical');
-    var numMclerical = countSubtype(gender, 'Male', jobcat, 'Clerical');
-    var percWclerical = numWclerical / (numWclerical + numMclerical);
-    var percMclerical = numMclerical / (numWclerical + numMclerical);
- 
-    push();
-    translate(1650, 200);
-    pie(percWclerical, Wcolor, percMclerical, Mcolor);
-    pop();
+  push();
+  translate(1000, 300);
+  bar(avgWomanSal, Wcolor, avgManSal, Mcolor, 50000);
+  pop();
 
-    var numWcustodial = countSubtype(gender, 'Female', jobcat, 'Custodial');
-    var numMcustodial = countSubtype(gender, 'Male', jobcat, 'Custodial');
-    var percWcustodial = numWcustodial / (numWcustodial + numMcustodial);
-    var percMcustodial = numMcustodial / (numWcustodial + numMcustodial);
-
-    push();
-    translate(1900, 200);
-    pie(percWcustodial+0.0001, Wcolor, percMcustodial-0.0001, Mcolor); // 100% of custodians are men, so I made slight changes to the values to draw a circle instead of arcs
-    pop();
-
-    // 5. calculate avg salaries for men and women in different job categories
-   var Wmanagers = [];
-   Wmanagers = getArray(salary, gender, "Female", jobcat, "Manager");
-   var avgWmanager = average(Wmanagers); // average salary for female managers
-
-   var Mmanagers = [];
-   Mmanagers = getArray(salary, gender, "Male", jobcat, "Manager");
-   var avgMmanager = average(Mmanagers); // average salary for male managers
-
-    push();
-    translate(2100, 300);
-    bar(avgWmanager, Wcolor, avgMmanager, Mcolor, 50000);
-    pop();
+  // 4. calculate percentages of men/women by job category
 
 
-   var Wclericals = [];
-   Wclericals = getArray(salary, gender, "Female", jobcat, "Clerical");
-   var avgWclerical = average(Wclericals); // average salary for female clericals
-
-   var Mclericals = [];
-   Mclericals = getArray(salary, gender, "Female", jobcat, "Clerical");
-   var avgMclerical = average(Mclericals); // average salary for male clericals
-
-    push();
-    translate(2300, 300);
-    bar(avgWclerical, Wcolor, avgMclerical, Mcolor, 50000); // something is wrong with the graphs - the values should not be equal
-    pop();
-
-   // custodial salary data not applicable because all custodial staff are men, hence there is no comparison to be made
- 
-   // 6. calculate percentages of men/women by race
-    var numWhites = countType(race, 'No');
-    var numPOC = countType(race, 'Yes');
-    var percWhites = numWhites / (numWhites + numPOC);
-    var percPOC = numPOC / (numWhites + numPOC);
-
-    push();
-    translate(2700, 400);
-    pie(percPOC, 'green', percWhites, 'red'); // TODO: decide whether to include this stat. is it useful to see what percentage of the firm is white/POC???
-    pop();
-
-    var numWpoc = countSubtype(gender, 'Female', race, 'No');
-    var numMpoc = countSubtype(gender, 'Male', race, 'No');
-    var percMpoc = numMpoc / (numWpoc + numMpoc);
-    var percWpoc = numWpoc / (numWpoc + numMpoc);
-
-    push();
-    translate(2700, 200);
-    pie(percWpoc, Wcolor, percMpoc, Mcolor);
-    pop();
-
-    var numWwhites = countSubtype(gender, 'Female', race, 'No');
-    var numMwhites = countSubtype(gender, 'Male', race, 'No');
-    var percMwhites = numMwhites / (numWwhites + numMwhites);
-    var percWwhites = numWwhites / (numWwhites + numMwhites);
-
-    push();
-    translate(2950, 200);
-    pie(percWwhites, Wcolor, percMwhites, Mcolor);
-    pop();
+  push();
+  translate(1400, 200);
+  pie(percWmanagers, Wcolor, percMmanagers, Mcolor);
+  pop();
 
 
-   // 7. calculate avg salaries for white vs. non-white men and women
-   var PoCwomen = [];
-   PoCwomen = getArray(salary, race, "Yes", gender, "Female");
-   var avgPoCw = average(PoCwomen); // average current salary for women of color
-    
-   var PoCmen = [];
-   PoCmen = getArray(salary, race, "Yes", gender, "Male");
-   var avgPoCm = average(PoCmen); // average current salary for men of color
 
-    push();
-    translate(3150, 300);
-    bar(avgPoCw, Wcolor, avgPoCm, Mcolor, 50000); // TO DO: troubleshoot why the graphs are equal
-    pop();
+  push();
+  translate(1650, 200);
+  pie(percWclerical, Wcolor, percMclerical, Mcolor);
+  pop();
 
-   var whiteWomen = [];
-   whiteWomen = getArray(salary, race, "No", gender, "Female");
-   var avgwhiteW = average(whiteWomen); // average current salary for white women
 
-   var whiteMen = [];
-   whiteMen = getArray(salary, race, "No", gender, "Male");
-   avgwhiteM = average(whiteMen); //average current salary for white men
 
-    push();
-    translate(3350, 300);
-    bar(avgwhiteM, Wcolor, avgwhiteW, Mcolor, 50000); // TO DO: troubleshoot why the graphs are equal
-    pop();
+  push();
+  translate(1900, 200);
+  pie(percWcustodial+0.0001, Wcolor, percMcustodial-0.0001, Mcolor); // 100% of custodians are men, so I made slight changes to the values to draw a circle instead of arcs
+  pop();
 
-   // 8. education scatter plot
-    var maxSal;
-    if (findmax(womenSal) > findmax(menSal))
-        maxSal = findmax(womenSal);
-    else
-        maxSal = findmax(menSal);
-    
-    var eduW = [];
-    eduW = getArray(edu, gender, "Female");
-    var eduM = [];
-    eduM = getArray(edu, gender, "Male");
-    var maxEdu;
-    
-    if (findmax(eduW) > findmax(eduM))
-        maxEdu = findmax(eduW);
-    else
-        maxEdu = findmax(eduM);
+  // 5. calculate avg salaries for men and women in different job categories
 
-    push();
-    translate(3700, 350);
-    stroke(Mcolor);
-    plot(eduM, menSal, maxEdu, maxSal, 'years', '$');
-    stroke(Wcolor);
-    plot(eduW, womenSal, maxEdu, maxSal, 'years', '$');
-    pop();
 
-   // 9. age scatter plot
-  var agesW = [];
-  agesW = getArray(age, gender, "Female");
-  var agesM = [];
-  agesM = getArray(age, gender, "Male");
-  var maxAge;
-    if (findmax(agesW) > findmax(agesM))
-        maxAge = findmax(agesW);
-    else
-        maxAge = findmax(agesM);
-  
+  push();
+  translate(2100, 300);
+  bar(avgWmanager, Wcolor, avgMmanager, Mcolor, 50000);
+  pop();
+
+
+
+  push();
+  translate(2300, 300);
+  bar(avgWclerical, Wcolor, avgMclerical, Mcolor, 50000); // something is wrong with the graphs - the values should not be equal
+  pop();
+
+  // custodial salary data not applicable because all custodial staff are men, hence there is no comparison to be made
+
+  // 6. calculate percentages of men/women by race
+
+  // push();
+  // translate(2700, 400);
+  // pie(percPOC, 'green', percWhites, 'red'); // TODO: decide whether to include this stat. is it useful to see what percentage of the firm is white/POC???
+  // pop();
+
+
+
+  push();
+  translate(2700, 200);
+  pie(percWpoc, Wcolor, percMpoc, Mcolor);
+  pop();
+
+
+
+  push();
+  translate(2950, 200);
+  pie(percWwhites, Wcolor, percMwhites, Mcolor);
+  pop();
+
+
+  // 7. calculate avg salaries for white vs. non-white men and women
+
+  push();
+  translate(3150, 300);
+  bar(avgPoCw, Wcolor, avgPoCm, Mcolor, 50000); // TO DO: troubleshoot why the graphs are equal
+  pop();
+
+
+  push();
+  translate(3350, 300);
+  bar(avgwhiteM, Wcolor, avgwhiteW, Mcolor, 50000); // TO DO: troubleshoot why the graphs are equal
+  pop();
+
+  // 8. education scatter plot
+
+
+  push();
+  translate(3700, 350);
+  stroke(Mcolor);
+  plot(eduM, menSal, maxEdu, maxSal, 'years', '$');
+  stroke(Wcolor);
+  plot(eduW, womenSal, maxEdu, maxSal, 'years', '$');
+  pop();
+
+  // 9. age scatter plot
+
   push();
   translate(4500, 350);
   stroke(Mcolor);
@@ -448,7 +521,7 @@ function draw() {
   pop();
 
 
-  // 10. conclusion - what do you think?
+  // 10. conclusion - what do you think? -> with rest of text calls
 
 }
 
@@ -459,8 +532,6 @@ function parseSource() {
     jobcat[i] = table.get(i,2);
     salary[i] = Number(table.get(i,3));
     salbegin[i] = Number(table.get(i,4));
-    jobtime[i] = Number(table.get(i,5));
-    prevexp[i] = Number(table.get(i,6));
     race[i] = table.get(i,7);
     age[i] = Number(table.get(i,8));
     gender[i] = table.get(i,9);
