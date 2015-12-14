@@ -135,7 +135,7 @@ function setup() {
     scrolldir.class("description");
     scrolldir.position(0, 500);
 
-    var desGender = createDiv("Of the " + table.getRowCount() + " people on staff, " + placeholder + "% were women and " + placeholder + "% were men.\nNote: Transgender people are not accounted for in the company’s records.");
+    var desGender = createDiv("Of the " + table.getRowCount() + " people on staff, " + nf(percWomen*100, 2, 1) + "% were women and " + nf(percMen*100, 2, 1) + "% were men.\nNote: Transgender people are not accounted for in the company’s records.");
     desGender.class("details");
     desGender.class("description");
     desGender.position(450, 500);
@@ -147,7 +147,7 @@ function setup() {
     graphGenderbeg.position(600, 150);
 
 
-    var desGenderbeg = createDiv("Women averaged $" + placeholder + " less than men at the time they were hired.\nNote: All amounts in 1989 US dollars, not adjusted for inflation.");
+    var desGenderbeg = createDiv("Women averaged $" +  nf(avgBegM - avgBegW, 0, 2) + " less than men at the time they were hired.\nNote: All amounts in 1989 US dollars, not adjusted for inflation.");
     desGenderbeg.class("details");
     desGenderbeg.class("description");
     desGenderbeg.position(600, 500);
@@ -157,7 +157,7 @@ function setup() {
     graphGender.class("description");
     graphGender.position(900, 150);
 
-   var desGendercur = createDiv("Women averaged $" + placeholder + " less than men at the time of the lawsuit (1989).");
+   var desGendercur = createDiv("Women averaged $" + nf(avgManSal - avgWomanSal, 0, 2) + " less than men at the time of the lawsuit (1989).");
     desGendercur.class("details");
     desGendercur.class("description");
     desGendercur.position(900, 500);
@@ -177,9 +177,10 @@ function setup() {
     piecustodian.class("description");
     piecustodian.position(1800, 150);
 
-    var desJobtype = createDiv("The company had three job categories: managerial, clerical and custodial staff.\nWomen made up " + placeholder + "% of managers, " + placeholder + "% of clerical workers and 0% of the custodians.");
+    var desJobtype = createDiv("The company had three job categories: managerial, clerical and custodial staff.\nWomen made up " + nf(percWmanagers*100, 2, 1) + "% of managers, " + nf(percWclerical*100, 2, 1) + "% of clerical workers and 0% of the custodians.");
     desJobtype.class("details");
     desJobtype.class("description");
+    desJobtype.class("wide6");
     desJobtype.position(1300, 500);
 
     var graphmanagers = createDiv("Average Salaries for Managers");
@@ -192,19 +193,20 @@ function setup() {
     graphclericals.class("description");
     graphclericals.position(2200, 150);
 
-    var mgmtdesc = createDiv("Female managers averaged $" + placeholder + " less than male managers.");
+    var mgmtdesc = createDiv("Female managers averaged $" + nf(avgMmanager - avgWmanager, 0, 2) + " less than male managers.");
     mgmtdesc.class("details");
     mgmtdesc.class("description");
     mgmtdesc.position(2000, 500);
 
-    var clercdesc = createDiv("Female clerks averaged $" + placeholder + " less than male clerks.");
+    var clercdesc = createDiv("Female clerks averaged $" + nf(avgMclerical - avgWclerical, 0, 2) + " less than male clerks.");
     clercdesc.class("details");
     clercdesc.class("description");
     clercdesc.position(2200, 500);
 
-    var racedesc = createDiv("Overall, people of color comprised " + placeholder + "% of the company.\nNote: Multiracial people are not accounted for in the company’s records.");
+    var racedesc = createDiv("Overall, people of color comprised " + nf(percPOC*100, 2, 1) + "% of the company.\nNote: Multiracial people are not accounted for in the company’s records.");
     racedesc.class("details");
     racedesc.class("description");
+    racedesc.class("wide6");
     racedesc.position(2500, 600);
 
     var piePOC = createDiv("People of Color");
@@ -217,12 +219,12 @@ function setup() {
     piewhite.class("description");
     piewhite.position(2800, 150);
 
-    var pocdesc = createDiv(placeholder + "% of the employees of color were women.");
+    var pocdesc = createDiv(nf(percWpoc*100, 2, 1) + "% of the employees of color were women.");
     pocdesc.class("details");
     pocdesc.class("description");
     pocdesc.position(2500, 500);
 
-    var whitedesc = createDiv(placeholder + "% of the white employees were women.");
+    var whitedesc = createDiv(nf(percWhites*100, 2, 1) + "% of the white employees were women.");
     whitedesc.class("details");
     whitedesc.class("description");
     whitedesc.position(2800, 500);
@@ -237,12 +239,12 @@ function setup() {
     graphwhite.class("description");
     graphwhite.position(3250, 150);
 
-    var pocgraphdesc = createDiv("Women of color averaged $" + placeholder + " less than men of color.");
+    var pocgraphdesc = createDiv("Women of color averaged $" + nf(avgPoCm - avgPoCw, 0, 2) + " less than men of color.");
     pocgraphdesc.class("details");
     pocgraphdesc.class("description");
     pocgraphdesc.position(3050, 500);
 
-    var whitegraphdesc = createDiv("White women averaged $" + placeholder + " less than white men.");
+    var whitegraphdesc = createDiv("White women averaged $" + nf(avgwhiteM - avgwhiteW, 0, 2) + " less than white men.");
     whitegraphdesc.class("details");
     whitegraphdesc.class("description");
     whitegraphdesc.position(3250, 500);
@@ -250,22 +252,19 @@ function setup() {
     var edudesc = createDiv("There is a direct correlation between amount of education and pay: people with more education tend to get paid more, on average.\nWomen averaged " + nf(edudiff, 0, 2) + " fewer years in school than men.\nNote: Education is measured in total years of schooling, from elementary on up.");
     edudesc.class("details");
     edudesc.class("description");
+    edudesc.class("wide6");
     edudesc.position(3700, 500);
 
     var agedesc = createDiv("While salaries among middle-aged men appear to be higher than younger and older men, there doesn't seem to be a strong correlation between age and salary among women.\nWhat is clear, however, is that the salary distribution for men seems to be higher on average than that of women at most ages.");
     agedesc.class("details");
     agedesc.class("description");
+    agedesc.class("wide6");
     agedesc.position(4500, 500);
 
     var concl = createDiv("What do you think? Is this company guilty of gender discrimination?");
     concl.class("heading");
     concl.class("description");
     concl.position(5200, 100);
-
-    
-
-    // TO DO: ADD CONCLUDING DESCRIPTION...WHAT DO YOU THINK? GUILTY/NOT GUILTY?
-
  
 }
 
