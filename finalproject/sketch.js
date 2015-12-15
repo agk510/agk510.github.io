@@ -74,6 +74,9 @@ var agesW = [];
 var agesM = [];
 var maxAge;
 
+var buttonguilty;
+var buttoninnocent;
+
 function preload() {
     table = loadTable("http://agk510.github.io/finalproject/libraries/empdat.csv", "csv", "header"); // load source, parse when done
 }
@@ -276,6 +279,14 @@ function setup() {
     concl.class("conclusion");
     concl.position(6100, 175);
  
+    buttoninnocent = createButton("Innocent!");
+    buttoninnocent.position(6150, 450);
+    buttoninnocent.mousePressed(innocent);
+
+    buttonguilty = createButton("Guilty!");
+    buttonguilty.position(6250, 450);
+    buttonguilty.mousePressed(guilty);
+
 }
 
 function calc() {
@@ -733,5 +744,13 @@ function bar(amount1, color1, amount2, color2, max) {
     text("Men: $" + nf(amount2, 0, 2), 60, 50);
 
    pop();
+}
+
+function innocent() {
+  confirm("ARE YOU SURE?\n\nSufficient evidence was provided in the lawsuite to find the company in question guilty of gender discimination.");
+}
+
+function guilty() {
+  confirm("GUILTY!\n\nSufficient evidence was provided in the lawsuite to find the company in question guilty of gender discimination.");
 }
     

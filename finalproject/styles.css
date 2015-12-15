@@ -93,3 +93,11 @@ a {
 .wide7 {
   width: 700px;
 }
+
+button {
+  z-index: 20;
+/*  height: 25px;
+  width: 40px;*/
+  /*font-size: 20;*/
+  font-weight: bold;
+}
