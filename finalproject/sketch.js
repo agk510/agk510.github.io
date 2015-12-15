@@ -1,4 +1,5 @@
 // Andrew Gordon-Kirsch final project for Data Viz, spring 2015
+// data source: empdat.csv - employee demographic information for unknown company under lawsuite. Retreived from Aaron Hill, spring 2015.
 
 var canvas;
 var table;
