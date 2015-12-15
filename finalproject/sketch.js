@@ -141,7 +141,7 @@ function setup() {
     scrolldir.class("wide4");
     scrolldir.position(50, 525);
 
-    var desGender = createDiv("Of the " + table.getRowCount() + " people on staff, " + nf(percWomen*100, 2, 1) + "% were women and " + nf(percMen*100, 2, 1) + "% were men.\nNote: Transgender people are not accounted for in the company’s records.");
+    var desGender = createDiv("Of the " + table.getRowCount() + " people on staff, " + nf(percWomen*100, 2, 1) + "% were women and " + nf(percMen*100, 2, 1) + "% were men.\nNote: transgender people are not accounted for in the company’s records.");
     desGender.class("details");
     desGender.class("description");
     desGender.position(600, 525);
@@ -154,7 +154,7 @@ function setup() {
     graphGenderbeg.position(1050, 175);
 
 
-    var desGenderbeg = createDiv("Women averaged $" +  nf(avgBegM - avgBegW, 0, 2) + " less than men at the time they were hired.\nNote: All amounts in 1989 US dollars, not adjusted for inflation.");
+    var desGenderbeg = createDiv("Women averaged $" +  nf(avgBegM - avgBegW, 0, 2) + " less than men at the time they were hired.\nNote: all amounts in 1989 US dollars, not adjusted for inflation.");
     desGenderbeg.class("details");
     desGenderbeg.class("description");
     desGenderbeg.position(1000, 525);
@@ -210,7 +210,7 @@ function setup() {
     clercdesc.class("description");
     clercdesc.position(2950, 525);
 
-    var racedesc = createDiv("Overall, people of color comprised " + nf(percPOC*100, 2, 1) + "% of the company.\nNote: Multiracial people are not accounted for in the company’s records.");
+    var racedesc = createDiv("Overall, people of color comprised " + nf(percPOC*100, 2, 1) + "% of the company.");
     racedesc.class("details");
     racedesc.class("description");
     racedesc.class("wide4");
@@ -258,7 +258,7 @@ function setup() {
     whitegraphdesc.class("description");
     whitegraphdesc.position(4250, 525);
 
-    var edudesc = createDiv("There is a direct correlation between amount of education and pay: people with more education tend to get paid more, on average.\nWomen averaged " + nf(edudiff, 0, 2) + " fewer years in school than men.\nNote: Education is measured in total years of schooling, from elementary on up.");
+    var edudesc = createDiv("There is a direct correlation between amount of education and pay: people with more education tend to get paid more, on average.\nWomen averaged " + nf(edudiff, 0, 2) + " fewer years in school than men.\nNote: education is measured in total years of schooling, from elementary and up.");
     edudesc.class("details");
     edudesc.class("description");
     edudesc.class("wide6");
@@ -550,8 +550,17 @@ function draw() {
   translate(4650, 450);
   stroke(Mcolor);
   plot(eduM, menSal, maxEdu, maxSal, 'years', '$');
+  noStroke();
+  fill(Mcolor);
+  textSize(20);
+  text("Men", 60, -175);
+
   stroke(Wcolor);
   plot(eduW, womenSal, maxEdu, maxSal, 'years', '$');
+  noStroke();
+  fill(Wcolor);
+  textSize(20);
+  text("Women", 60, -200);
   pop();
 
 
@@ -560,8 +569,18 @@ function draw() {
   translate(5400, 450);
   stroke(Mcolor);
   plot(agesM, menSal, maxAge, maxSal, 'years', '$');
+  noStroke();
+  fill(Mcolor);
+  textSize(20);
+  text("Men", 60, -175);
+
+
   stroke(Wcolor);
   plot(agesW, womenSal, maxAge, maxSal, 'years', '$');
+  noStroke();
+  fill(Wcolor);
+  textSize(20);
+  text("Women", 60, -200);
   pop();
 
 
@@ -628,14 +647,6 @@ function findmax (array) { // returns the maximum value in the array
     return max;
 }
 
-function getArray(array, subarray, subtype, subarray2, subtype2) { // something is wrong with the filtering, returns same array for white women and men and for PoC women and men
-    var newarray = [];
-    for (var i = 0; i < subarray.length; i++)
-        if (subarray[i] === subtype && subarray2[i] === subtype2)
-            append(newarray, array[i]);
-    
-    return newarray;
-}
 
 function getArray(array, subarray, subtype) {
     var newarray = [];
@@ -686,9 +697,20 @@ function pie(perc1, color1, perc2, color2) {
     noStroke();
     fill(color2);
     arc(0, 0, pieW, pieH, -HALF_PI, -HALF_PI + perc2*TWO_PI, PIE);
-    
+    // stroke(0);
+    // strokeWeight(1);
+    textSize(20);
+    text("Men: " + nf(perc2*100, 2, 1) + "%", 0, 150);
+
+    noStroke();
     fill(color1);
     arc(0, 0, pieW, pieH, -HALF_PI + perc2*TWO_PI, -HALF_PI + perc2*TWO_PI + perc1*TWO_PI, PIE);
+    // stroke(0);
+    // strokeWeight(2);
+    textSize(20);
+    text("Women: " + nf(perc1*100, 2, 1) + "%", 0, 125);
+
+    
     pop();
 }
 
@@ -700,10 +722,16 @@ function bar(amount1, color1, amount2, color2, max) {
    
    noStroke();
    fill(color1);
-   rect(0, 0, rectW, -map(amount1, 0, max, 0, graphH));    
+   rect(0, 0, rectW, -map(amount1, 0, max, 0, graphH));  
+   textSize(20);
+   text("Women: $" + nf(amount1, 0, 2), 60, 25);
+
+   noStroke();  
    fill(color2);
    rect(70, 0, rectW, -map(amount2, 0, max, 0, graphH));
-   
+   textSize(20);
+    text("Men: $" + nf(amount2, 0, 2), 60, 50);
+
    pop();
 }
     
