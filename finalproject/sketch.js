@@ -748,10 +748,10 @@ function bar(amount1, color1, amount2, color2, max) {
 }
 
 function innocent() {
-  confirm("ARE YOU SURE?\n\nSufficient evidence was provided in the lawsuite to find the company in question guilty of gender discimination.");
+  confirm("ARE YOU SURE?\n\nSufficient evidence was provided in the lawsuit to find the company in question guilty of gender discimination.");
 }
 
 function guilty() {
-  confirm("GUILTY!\n\nSufficient evidence was provided in the lawsuite to find the company in question guilty of gender discimination.");
+  confirm("GUILTY!\n\nSufficient evidence was provided in the lawsuit to find the company in question guilty of gender discimination.");
 }
     
